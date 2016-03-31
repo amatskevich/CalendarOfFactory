@@ -31,7 +31,7 @@ public final class R {
         public static final int date_layout=0x7f080003;
         public static final int date_up=0x7f080006;
         public static final int radioButton12=0x7f080001;
-        public static final int radioButton7=0x7f080002;
+        public static final int radioButton8=0x7f080002;
         public static final int radioGroup1=0x7f080000;
         public static final int table_layout1=0x7f080007;
     }

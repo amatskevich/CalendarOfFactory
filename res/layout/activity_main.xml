@@ -8,30 +8,37 @@
         android:id="@+id/radioGroup1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#333333"
+        android:background="#58ACFA"
         android:orientation="horizontal" >
 
         <RadioButton
             android:id="@+id/radioButton12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_weight="3"
             android:checked="true"
-            android:text="12" />
+            android:text="12" 
+            android:textSize="25sp"
+            android:onClick="onClickRadioSelect"/>
 
         <RadioButton
-            android:id="@+id/radioButton7"
+            android:id="@+id/radioButton8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_weight="3"
             android:checked="false"
-            android:text="7" />
+            android:text="8" 
+            android:textSize="25sp"
+            android:onClick="onClickRadioSelect"/>
     </RadioGroup>
 
     <LinearLayout
         android:id="@+id/date_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
         android:padding="10dip" >
 
@@ -39,32 +46,33 @@
             android:id="@+id/date_down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top|left"
             android:text="-"
-            android:textSize="35sp" />
+            android:textSize="38sp" />
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
             android:text="21.03.2016"
-            android:textSize="30sp" />
+            android:textSize="33sp" />
 
         <Button
             android:id="@+id/date_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
             android:text="+"
-            android:textSize="35sp" />
+            android:textSize="38sp" />
     </LinearLayout>
 
     <TableLayout
         android:id="@+id/table_layout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*" 
-        android:background="#000">
-
-        
+        android:background="#000"
+        android:stretchColumns="*" >
     </TableLayout>
 
 </LinearLayout>
