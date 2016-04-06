@@ -7,10 +7,9 @@ import java.util.List;
 
 public final class BusinessLogic {
 
-	private int cycle = 8;// cycle 8 days for TypeShift.TWELFTH
 	private Calendar date;
 
-	private List<Shift> shiftList;
+	private List<Shift> shiftList = new ArrayList<Shift>();
 
 	private TypeShift typeShift;
 
@@ -18,18 +17,20 @@ public final class BusinessLogic {
 		date = Calendar.getInstance();
 		date.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
 		typeShift = TypeShift.TWELFTH;
-		shiftList = new ArrayList<Shift>();
+
 		firstCalculation();
 	}
 
 	private void firstCalculation() {
-		Calendar basicDate = Calendar.getInstance();
-		basicDate.set(2016, 2, 20);// Shift_A THIRST_DAY
-		int days = betweenStartDayEndDay(basicDate, date);
-		int step = days % cycle;
-		for (CharShift cs : CharShift.values()) {
-			shiftList.add(new Shift(typeShift, cs, StateShift12.values()[step]));
-			step = (2 + step) % cycle;
+		shiftList.clear();
+		int days = betweenStartDayEndDay(typeShift.basicDate, date);
+		int step = days % typeShift.cycleDays;
+		if (step < 0) {
+			step += typeShift.cycleDays;
+		}
+		for (CharShift cs : typeShift.charShift.getEnumConstants()) {
+			shiftList.add(new Shift(typeShift, cs, typeShift.stateShift.getEnumConstants()[step]));
+			step = (2 + step) % typeShift.cycleDays;
 		}
 	}
 
@@ -57,10 +58,6 @@ public final class BusinessLogic {
 		return typeShift;
 	}
 
-	public void setTypeShift(TypeShift typeShift) {
-		this.typeShift = typeShift;
-	}
-
 	public String getDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		return sdf.format(date.getTime());
@@ -68,6 +65,11 @@ public final class BusinessLogic {
 
 	public List<Shift> getShiftList() {
 		return shiftList;
+	}
+
+	public void changeTypeShift() {
+		typeShift = typeShift == TypeShift.TWELFTH ? TypeShift.EIGHT : TypeShift.TWELFTH;
+		firstCalculation();
 	}
 
 }

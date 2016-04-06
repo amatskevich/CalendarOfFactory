@@ -56,7 +56,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void onClickRadioSelect(View v) {
 		if (selectedRadio != v.getId()) {
 			selectedRadio = v.getId();
-			Log.d("onCreate", "selectedTest=" + selectedRadio);
+			bLogic.changeTypeShift();
+			refreshViews();
 		}
 	}
 
