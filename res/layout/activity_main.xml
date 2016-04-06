@@ -18,9 +18,9 @@
             android:layout_gravity="top|center_horizontal"
             android:layout_weight="3"
             android:checked="true"
-            android:text="12" 
-            android:textSize="25sp"
-            android:onClick="onClickRadioSelect"/>
+            android:onClick="onClickRadioSelect"
+            android:text="12"
+            android:textSize="25sp" />
 
         <RadioButton
             android:id="@+id/radioButton8"
@@ -29,9 +29,9 @@
             android:layout_gravity="top|center_horizontal"
             android:layout_weight="3"
             android:checked="false"
-            android:text="8" 
-            android:textSize="25sp"
-            android:onClick="onClickRadioSelect"/>
+            android:onClick="onClickRadioSelect"
+            android:text="8"
+            android:textSize="25sp" />
     </RadioGroup>
 
     <LinearLayout
@@ -46,9 +46,8 @@
             android:id="@+id/date_down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|left"
-            android:text="-"
-            android:textSize="38sp" />
+            android:layout_gravity="left"
+            android:drawableLeft="@drawable/left"/>
 
         <TextView
             android:id="@+id/date"
@@ -62,9 +61,8 @@
             android:id="@+id/date_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
-            android:text="+"
-            android:textSize="38sp" />
+            android:layout_gravity="right"
+            android:drawableRight="@drawable/right" />
     </LinearLayout>
 
     <TableLayout
