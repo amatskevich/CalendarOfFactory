@@ -1,15 +1,15 @@
 package by.matskevich.calendaroffactory;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.DatePicker;
 import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -25,6 +25,15 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected TableLayout table;
 	private BusinessLogic bLogic = new BusinessLogic();
 
+	DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
+
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			bLogic.changeDate(year, monthOfYear, dayOfMonth);
+			refreshViews();
+		}
+	};
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,6 +46,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		decreaseDay = (Button) findViewById(R.id.date_down);
 		decreaseDay.setOnClickListener(this);
 		dateView = (TextView) findViewById(R.id.date);
+		dateView.setOnClickListener(this);
 		table = (TableLayout) findViewById(R.id.table_layout1);
 		refreshViews();
 	}
@@ -49,6 +59,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		} else if (v == decreaseDay) {
 			bLogic.dayDown();
 			refreshViews();
+		} else if (v == dateView) {
+			new DatePickerDialog(MainActivity.this, dateListener, bLogic.getYear(), bLogic.getMonth(), bLogic.getDay())
+					.show();
 		}
 
 	}

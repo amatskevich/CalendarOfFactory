@@ -63,6 +63,25 @@ public final class BusinessLogic {
 		return sdf.format(date.getTime());
 	}
 
+	public void changeDate(int year, int month, int day) {
+		date.set(Calendar.YEAR, year);
+		date.set(Calendar.MONTH, month);
+		date.set(Calendar.DAY_OF_MONTH, day);
+		firstCalculation();
+	}
+
+	public int getYear() {
+		return date.get(Calendar.YEAR);
+	}
+
+	public int getMonth() {
+		return date.get(Calendar.MONTH);
+	}
+
+	public int getDay() {
+		return date.get(Calendar.DAY_OF_MONTH);
+	}
+
 	public List<Shift> getShiftList() {
 		return shiftList;
 	}
