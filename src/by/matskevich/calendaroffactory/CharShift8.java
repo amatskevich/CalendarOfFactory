@@ -1,15 +1,25 @@
 package by.matskevich.calendaroffactory;
 
 public enum CharShift8 implements CharShift {
-	A('А'), B('Б'), V('В'), G('Г'), D('Д');// Order shifts!!
+	A8('А'), B8('Б'), V8('В'), G8('Г'), D8('Д');
 	final char charShift;
+	private String nameChar;
 
-	CharShift8(char charShift) {
+	private CharShift8(char charShift) {
 		this.charShift = charShift;
+		this.nameChar = String.valueOf(charShift);
 	}
 
 	public String getChar() {
 		return "" + charShift;
+	}
+
+	public String getNameChar() {
+		return nameChar;
+	}
+
+	public void setNameChar(String nameChar) {
+		this.nameChar = nameChar;
 	}
 
 }

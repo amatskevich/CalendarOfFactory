@@ -8,7 +8,7 @@ public enum StateShift12 implements Statable {
 
 	final String state;
 
-	StateShift12(String state) {
+	private StateShift12(String state) {
 		this.state = state;
 	}
 

@@ -5,7 +5,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import android.content.SharedPreferences;
+
 public final class BusinessLogic {
+
+	private static BusinessLogic bLogic;
+
+	public static final String APP_PREFERENCE = "facsettings4";
 
 	private Calendar date;
 
@@ -13,12 +19,19 @@ public final class BusinessLogic {
 
 	private TypeShift typeShift;
 
-	public BusinessLogic() {
+	private BusinessLogic() {
 		date = Calendar.getInstance();
 		date.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
 		typeShift = TypeShift.TWELFTH;
 
 		firstCalculation();
+	}
+
+	public static BusinessLogic getInstance() {
+		if (bLogic == null) {
+			bLogic = new BusinessLogic();
+		}
+		return bLogic;
 	}
 
 	private void firstCalculation() {

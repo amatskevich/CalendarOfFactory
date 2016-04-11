@@ -7,7 +7,7 @@ public enum StateShift8 implements Statable {
 
 	final String state;
 
-	StateShift8(String state) {
+	private StateShift8(String state) {
 		this.state = state;
 	}
 

@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="by.matskevich.calendaroffactory.settings.SettingsActivity"
+            android:label="@string/settings_title"
+            android:parentActivityName="by.matskevich.calendaroffactory.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="by.matskevich.calendaroffactory.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

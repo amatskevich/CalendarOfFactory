@@ -2,10 +2,15 @@ package by.matskevich.calendaroffactory;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -14,16 +19,16 @@ import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import by.matskevich.calendaroffactory.settings.SettingsActivity;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-	private int selectedRadio;
-	protected RadioGroup radioGroup;
+	private SharedPreferences mSettings;
 	protected Button addDay;
 	protected Button decreaseDay;
 	protected TextView dateView;
 	protected TableLayout table;
-	private BusinessLogic bLogic = new BusinessLogic();
+	private BusinessLogic bLogic;
 
 	DatePickerDialog.OnDateSetListener dateListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -39,8 +44,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		radioGroup = (RadioGroup) findViewById(R.id.radioGroup1);
-		selectedRadio = radioGroup.getCheckedRadioButtonId();
+		bLogic = BusinessLogic.getInstance();
+		mSettings = getSharedPreferences(BusinessLogic.APP_PREFERENCE, Context.MODE_PRIVATE);
 		addDay = (Button) findViewById(R.id.date_up);
 		addDay.setOnClickListener(this);
 		decreaseDay = (Button) findViewById(R.id.date_down);
@@ -48,7 +53,46 @@ public class MainActivity extends Activity implements OnClickListener {
 		dateView = (TextView) findViewById(R.id.date);
 		dateView.setOnClickListener(this);
 		table = (TableLayout) findViewById(R.id.table_layout1);
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		readNameShift(CharShift8.class);
+		readNameShift(CharShift12.class);
+		// Установление типа
+		if (mSettings.contains(TypeShift.TYPE_SHIFT)) {
+			TypeShift type = TypeShift.valueOf(mSettings.getString(TypeShift.TYPE_SHIFT, TypeShift.TWELFTH.toString()));
+			if (type != bLogic.getTypeShift()) {
+				bLogic.changeTypeShift();
+			}
+		}
 		refreshViews();
+	}
+
+	private void readNameShift(Class<? extends CharShift> charShift) {
+		for (CharShift shift : charShift.getEnumConstants()) {
+			if (mSettings.contains(shift.toString())) {
+				shift.setNameChar(mSettings.getString(shift.toString(), "Error"));
+			}
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.action_settings) {
+			Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -64,14 +108,6 @@ public class MainActivity extends Activity implements OnClickListener {
 					.show();
 		}
 
-	}
-
-	public void onClickRadioSelect(View v) {
-		if (selectedRadio != v.getId()) {
-			selectedRadio = v.getId();
-			bLogic.changeTypeShift();
-			refreshViews();
-		}
 	}
 
 	private void refreshViews() {
