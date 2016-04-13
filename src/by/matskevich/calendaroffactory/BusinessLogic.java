@@ -11,7 +11,7 @@ public final class BusinessLogic {
 
 	private static BusinessLogic bLogic;
 
-	public static final String APP_PREFERENCE = "facsettings4";
+	public static final String APP_PREFERENCE = "facsettings5";
 
 	private Calendar date;
 

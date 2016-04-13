@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -53,14 +54,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		dateView = (TextView) findViewById(R.id.date);
 		dateView.setOnClickListener(this);
 		table = (TableLayout) findViewById(R.id.table_layout1);
+		readNameShift(CharShift8.class);
+		readNameShift(CharShift12.class);
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
 
-		readNameShift(CharShift8.class);
-		readNameShift(CharShift12.class);
 		// Установление типа
 		if (mSettings.contains(TypeShift.TYPE_SHIFT)) {
 			TypeShift type = TypeShift.valueOf(mSettings.getString(TypeShift.TYPE_SHIFT, TypeShift.TWELFTH.toString()));
@@ -114,7 +115,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		dateView.setText(bLogic.getDate());
 		table.removeAllViews();
 		for (Shift shift : bLogic.getShiftList()) {
-			TextView col1 = createColumn(shift.getCharShift().getChar());
+			TextView col1 = createColumn(shift.getCharShift().getNameChar());
 			TextView col2 = createColumn(shift.getStateShift().getState());
 			TableRow row = new TableRow(this);
 			row.addView(col1);

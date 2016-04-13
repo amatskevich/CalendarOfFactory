@@ -18,7 +18,7 @@
             android:layout_weight="3"
             android:checked="true"
             android:onClick="onClickRadioSelect"
-            android:text="12"
+            android:text="12ч смена"
             android:textSize="25sp" />
 
         <RadioButton
@@ -29,7 +29,7 @@
             android:layout_weight="3"
             android:checked="false"
             android:onClick="onClickRadioSelect"
-            android:text="8"
+            android:text="8ч смена"
             android:textSize="25sp" />
     </RadioGroup>
 
@@ -37,7 +37,7 @@
         android:id="@+id/table_shift12"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#000"
+        android:background="#81F7F3"
         android:stretchColumns="*" >
     </TableLayout>
 
@@ -45,7 +45,7 @@
         android:id="@+id/table_shift8"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#000"
+        android:background="#BCF5A9"
         android:stretchColumns="*" >
     </TableLayout>
 

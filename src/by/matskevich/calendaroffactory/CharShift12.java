@@ -21,4 +21,5 @@ public enum CharShift12 implements CharShift {
 	public void setNameChar(String nameChar) {
 		this.nameChar = nameChar;
 	}
+
 }
