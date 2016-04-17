@@ -3,14 +3,23 @@
     tools:context="by.matskevich.calendaroffactory.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/empty_item"
         android:orderInCategory="10"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
-    <item
-        android:id="@+id/action_about"
-        android:orderInCategory="20"
-        android:showAsAction="never"
-        android:title="@string/title_activity_about"/>
+        android:title="@string/settings_title"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_overflow">
+        <menu>
+            <item
+                android:id="@+id/action_settings"
+                android:orderInCategory="10"
+                android:showAsAction="never"
+                android:title="@string/action_settings"/>
+            <item
+                android:id="@+id/action_about"
+                android:orderInCategory="20"
+                android:showAsAction="never"
+                android:title="@string/title_activity_about"/>
+        </menu>
+    </item>
 
 </menu>
