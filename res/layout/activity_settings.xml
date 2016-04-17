@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/backgroundApp" >
 
     <RadioGroup
         android:id="@+id/radioGroup1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#58ACFA"
         android:orientation="horizontal" >
 
         <RadioButton
@@ -18,8 +18,8 @@
             android:layout_weight="3"
             android:checked="true"
             android:onClick="onClickRadioSelect"
-            android:text="12ч смена"
-            android:textSize="25sp" />
+            android:text="@string/radio_12"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radioButton8"
@@ -29,15 +29,15 @@
             android:layout_weight="3"
             android:checked="false"
             android:onClick="onClickRadioSelect"
-            android:text="8ч смена"
-            android:textSize="25sp" />
+            android:text="@string/radio_8"
+            android:textSize="20sp" />
     </RadioGroup>
 
     <TableLayout
         android:id="@+id/table_shift12"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#81F7F3"
+        android:background="@color/tableSetting_12"
         android:stretchColumns="*" >
     </TableLayout>
 
@@ -45,7 +45,7 @@
         android:id="@+id/table_shift8"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#BCF5A9"
+        android:background="@color/tableSetting_8"
         android:stretchColumns="*" >
     </TableLayout>
 

@@ -1,17 +1,16 @@
 package by.matskevich.calendaroffactory;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import android.content.SharedPreferences;
-
 public final class BusinessLogic {
 
 	private static BusinessLogic bLogic;
 
-	public static final String APP_PREFERENCE = "facsettings5";
+	public static final String APP_PREFERENCE = "appsettings";
 
 	private Calendar date;
 
@@ -48,8 +47,6 @@ public final class BusinessLogic {
 	}
 
 	private int betweenStartDayEndDay(Calendar start, Calendar end) {
-		// SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-
 		return (int) ((end.getTime().getTime() - start.getTime().getTime()) / (1000 * 60 * 60 * 24));
 	}
 
@@ -72,7 +69,7 @@ public final class BusinessLogic {
 	}
 
 	public String getDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+		DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		return sdf.format(date.getTime());
 	}
 

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -16,13 +15,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import by.matskevich.calendaroffactory.settings.SettingsActivity;
 
 public class MainActivity extends Activity implements OnClickListener {
+
+	private static final String ROW1 = "#B9EFFF";
+	private static final String ROW2 = "#FAFAFA";
 
 	private SharedPreferences mSettings;
 	protected Button addDay;
@@ -92,6 +93,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
 			startActivity(intent);
 			return true;
+		} else if (item.getItemId() == R.id.action_about) {
+			Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+			startActivity(intent);
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -114,11 +119,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void refreshViews() {
 		dateView.setText(bLogic.getDate());
 		table.removeAllViews();
+		boolean rowColor = true;
 		for (Shift shift : bLogic.getShiftList()) {
 			TextView col1 = createColumn(shift.getCharShift().getNameChar());
 			TextView col2 = createColumn(shift.getStateShift().getState());
 			TableRow row = new TableRow(this);
 			row.addView(col1);
+			row.setBackgroundColor(Color.parseColor(rowColor ? ROW1 : ROW2));
+			rowColor = rowColor ? false : true;
 			row.addView(col2);
 			table.addView(row);
 		}
@@ -127,8 +135,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private TextView createColumn(String str) {
 		TextView col1 = new TextView(this);
 		col1.setText(str);
-		col1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-		col1.setBackgroundColor(Color.WHITE);
+		col1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
 		col1.setTextColor(Color.BLACK);
 		col1.setGravity(Gravity.CENTER_HORIZONTAL);
 		col1.setTextAppearance(this, android.R.attr.textAppearanceMedium);

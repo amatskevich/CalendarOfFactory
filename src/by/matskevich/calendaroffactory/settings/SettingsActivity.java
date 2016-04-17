@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.InputFilter;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -27,6 +27,8 @@ import by.matskevich.calendaroffactory.TypeShift;
 
 public class SettingsActivity extends Activity {
 
+	private static final String HEAP_8 = "Наименования 8-х часовых смен";
+	private static final String HEAP_12 = "Наименования 12-х часовых смен";
 	private int selectedRadio;
 	protected RadioGroup radioGroup;
 	private RadioButton rbutton12;
@@ -49,8 +51,8 @@ public class SettingsActivity extends Activity {
 		table8 = (TableLayout) findViewById(R.id.table_shift8);
 		table12 = (TableLayout) findViewById(R.id.table_shift12);
 		nameChars.clear();
-		buildTables(table8, CharShift8.class, "8-ми часовые смены");
-		buildTables(table12, CharShift12.class, "12-ти часовые смены");
+		buildTables(table8, CharShift8.class, HEAP_8);
+		buildTables(table12, CharShift12.class, HEAP_12);
 		setRadioButton();
 		selectedRadio = radioGroup.getCheckedRadioButtonId();
 	}
@@ -77,14 +79,14 @@ public class SettingsActivity extends Activity {
 		heap.setBackgroundColor(Color.YELLOW);
 		rowHeap.addView(heap);
 		table.addView(rowHeap);
+		InputFilter[] filterArray = new InputFilter[1];
+		filterArray[0] = new InputFilter.LengthFilter(8);
 		for (CharShift shift : charShift.getEnumConstants()) {
-			// TextView col1 = createColumn(new TextView(this),
-			// shift.getChar());
 			EditText col2 = createColumn(new EditText(this), shift.getNameChar());
+			col2.setFilters(filterArray);
+			col2.setHint(shift.getChar());
 			nameChars.put(shift, col2);
-			// col2.setOnEditorActionListener(el);
 			TableRow row = new TableRow(this);
-			// row.addView(col1);
 			row.addView(col2);
 			table.addView(row);
 		}
@@ -116,6 +118,9 @@ public class SettingsActivity extends Activity {
 		SharedPreferences.Editor editor = mSettings.edit();
 		for (CharShift charShift : nameChars.keySet()) {
 			String name = nameChars.get(charShift).getText().toString();
+			if (name == null || name.trim().isEmpty()) {
+				name = charShift.getChar();
+			}
 			editor.putString(charShift.toString(), name);
 			charShift.setNameChar(name);
 		}

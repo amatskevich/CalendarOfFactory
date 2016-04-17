@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="by.matskevich.calendaroffactory"
-    android:versionCode="1"
-    android:versionName="1.1" >
+    android:versionCode="2"
+    android:versionName="1.2" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -23,9 +23,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="by.matskevich.calendaroffactory.settings.SettingsActivity"
+            android:name=".settings.SettingsActivity"
             android:label="@string/settings_title"
-            android:parentActivityName="by.matskevich.calendaroffactory.MainActivity" >
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="by.matskevich.calendaroffactory.MainActivity" />
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/title_activity_about"
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="by.matskevich.calendaroffactory.MainActivity" />

@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/backgroundApp"
     android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/date_layout"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
+        android:paddingTop="20dip"
+        android:paddingBottom="20dip"
         android:padding="10dip" >
 
         <Button
@@ -23,7 +26,7 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center_horizontal"
+            android:layout_gravity="center_horizontal"
             android:text="21.03.2016"
             android:textSize="33sp" />
 
@@ -39,8 +42,8 @@
         android:id="@+id/table_layout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#000"
-        android:stretchColumns="*" >
+        android:stretchColumns="*"
+        android:shrinkColumns="0,1" >
     </TableLayout>
 
 </LinearLayout>
