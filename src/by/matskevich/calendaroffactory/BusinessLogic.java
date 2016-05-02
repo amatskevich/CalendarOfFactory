@@ -96,8 +96,8 @@ public final class BusinessLogic {
 		return shiftList;
 	}
 
-	public void changeTypeShift() {
-		typeShift = typeShift == TypeShift.TWELFTH ? TypeShift.EIGHT : TypeShift.TWELFTH;
+	public void changeTypeShift(TypeShift type) {
+		typeShift = type;
 		firstCalculation();
 	}
 

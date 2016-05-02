@@ -3,7 +3,8 @@ package by.matskevich.calendaroffactory;
 import java.util.Calendar;
 
 public enum TypeShift {
-	TWELFTH(8, CharShift12.class, StateShift12.class), EIGHT(10, CharShift8.class, StateShift8.class);
+	TWELFTH(8, CharShift12.class, StateShift12.class), EIGHT(10, CharShift8.class, StateShift8.class), DAY(4,
+			CharShiftDay.class, StateShiftDay.class);
 
 	public static final String TYPE_SHIFT = "TypeShift";
 	final int cycleDays;

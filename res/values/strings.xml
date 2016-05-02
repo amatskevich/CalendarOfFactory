@@ -13,6 +13,7 @@
     <string name="email_author">matskevichandrei@gmail.com</string>
     <string name="radio_12">12ч смена</string>
     <string name="radio_8">8ч смена</string>
+    <string name="radio_day">2 через 2 по 12ч</string>
     <string name="title_activity_calendar">Календарь</string>
 
 </resources>

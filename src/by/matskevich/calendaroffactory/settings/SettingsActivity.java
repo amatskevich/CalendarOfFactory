@@ -22,6 +22,7 @@ import by.matskevich.calendaroffactory.BusinessLogic;
 import by.matskevich.calendaroffactory.CharShift;
 import by.matskevich.calendaroffactory.CharShift12;
 import by.matskevich.calendaroffactory.CharShift8;
+import by.matskevich.calendaroffactory.CharShiftDay;
 import by.matskevich.calendaroffactory.R;
 import by.matskevich.calendaroffactory.TypeShift;
 
@@ -29,12 +30,15 @@ public class SettingsActivity extends Activity {
 
 	private static final String HEAP_8 = "Наименования 8-х часовых смен";
 	private static final String HEAP_12 = "Наименования 12-х часовых смен";
+	private static final String HEAP_DAY = "Наименования смен 2 через 2 по 12ч";
 	private int selectedRadio;
 	protected RadioGroup radioGroup;
 	private RadioButton rbutton12;
 	private RadioButton rbutton8;
+	private RadioButton rbuttonDay;
 	private TableLayout table8;
 	private TableLayout table12;
+	private TableLayout tableDay;
 	private TypeShift type = TypeShift.TWELFTH;
 	private SharedPreferences mSettings;
 	private Map<CharShift, EditText> nameChars = new HashMap<CharShift, EditText>();
@@ -48,11 +52,14 @@ public class SettingsActivity extends Activity {
 		radioGroup = (RadioGroup) findViewById(R.id.radioGroup1);
 		rbutton8 = (RadioButton) findViewById(R.id.radioButton8);
 		rbutton12 = (RadioButton) findViewById(R.id.radioButton12);
+		rbuttonDay = (RadioButton) findViewById(R.id.radioButtonDay);
 		table8 = (TableLayout) findViewById(R.id.table_shift8);
 		table12 = (TableLayout) findViewById(R.id.table_shift12);
+		tableDay = (TableLayout) findViewById(R.id.table_shift_day);
 		nameChars.clear();
 		buildTables(table8, CharShift8.class, HEAP_8);
 		buildTables(table12, CharShift12.class, HEAP_12);
+		buildTables(tableDay, CharShiftDay.class, HEAP_DAY);
 		setRadioButton();
 		selectedRadio = radioGroup.getCheckedRadioButtonId();
 	}
@@ -61,10 +68,18 @@ public class SettingsActivity extends Activity {
 		if (mSettings.contains(TypeShift.TYPE_SHIFT)) {
 			radioGroup.clearCheck();
 			type = TypeShift.valueOf(mSettings.getString(TypeShift.TYPE_SHIFT, TypeShift.TWELFTH.toString()));
-			if (type == TypeShift.EIGHT) {
+			switch (type) {
+			case EIGHT:
 				rbutton8.setChecked(true);
-			} else {
+				setVisible8();
+				break;
+			case DAY:
+				rbuttonDay.setChecked(true);
+				setVisibleDay();
+				break;
+			default:
 				rbutton12.setChecked(true);
+				setVisible12();
 			}
 		}
 	}
@@ -80,7 +95,7 @@ public class SettingsActivity extends Activity {
 		rowHeap.addView(heap);
 		table.addView(rowHeap);
 		InputFilter[] filterArray = new InputFilter[1];
-		filterArray[0] = new InputFilter.LengthFilter(8);
+		filterArray[0] = new InputFilter.LengthFilter(10);
 		for (CharShift shift : charShift.getEnumConstants()) {
 			EditText col2 = createColumn(new EditText(this), shift.getNameChar());
 			col2.setFilters(filterArray);
@@ -105,7 +120,19 @@ public class SettingsActivity extends Activity {
 	public void onClickRadioSelect(View v) {
 		if (selectedRadio != v.getId()) {
 			selectedRadio = v.getId();
-			type = type == TypeShift.EIGHT ? TypeShift.TWELFTH : TypeShift.EIGHT;
+			switch (selectedRadio) {
+			case R.id.radioButton8:
+				type = TypeShift.EIGHT;
+				setVisible8();
+				break;
+			case R.id.radioButtonDay:
+				type = TypeShift.DAY;
+				setVisibleDay();
+				break;
+			default:
+				type = TypeShift.TWELFTH;
+				setVisible12();
+			}
 			SharedPreferences.Editor editor = mSettings.edit();
 			editor.putString(TypeShift.TYPE_SHIFT, type.toString());
 			editor.apply();
@@ -125,6 +152,24 @@ public class SettingsActivity extends Activity {
 			charShift.setNameChar(name);
 		}
 		editor.apply();
+	}
+
+	private void setVisible8() {
+		table8.setVisibility(View.VISIBLE);
+		table12.setVisibility(View.GONE);
+		tableDay.setVisibility(View.GONE);
+	}
+
+	private void setVisible12() {
+		table8.setVisibility(View.GONE);
+		table12.setVisibility(View.VISIBLE);
+		tableDay.setVisibility(View.GONE);
+	}
+
+	private void setVisibleDay() {
+		table8.setVisibility(View.GONE);
+		table12.setVisibility(View.GONE);
+		tableDay.setVisibility(View.VISIBLE);
 	}
 
 }

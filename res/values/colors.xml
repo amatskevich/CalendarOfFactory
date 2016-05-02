@@ -3,4 +3,5 @@
     <color name="backgroundApp">#A9E2F3</color>
     <color name="tableSetting_12">#81F7F3</color>
     <color name="tableSetting_8">#BCF5A9</color>
+    <color name="tableSetting_day">#EEBEFF</color>
 </resources>

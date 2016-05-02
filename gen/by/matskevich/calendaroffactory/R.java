@@ -14,6 +14,7 @@ public final class R {
         public static final int backgroundApp=0x7f040000;
         public static final int tableSetting_12=0x7f040001;
         public static final int tableSetting_8=0x7f040002;
+        public static final int tableSetting_day=0x7f040003;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -35,20 +36,22 @@ public final class R {
         public static final int right_min=0x7f020005;
     }
     public static final class id {
-        public static final int action_about=0x7f09000e;
-        public static final int action_settings=0x7f09000d;
+        public static final int action_about=0x7f090010;
+        public static final int action_settings=0x7f09000f;
         public static final int calendar_view=0x7f090001;
         public static final int date=0x7f090004;
         public static final int date_down=0x7f090003;
         public static final int date_layout=0x7f090002;
         public static final int date_up=0x7f090005;
-        public static final int empty_item=0x7f09000c;
+        public static final int empty_item=0x7f09000e;
         public static final int radioButton12=0x7f090008;
         public static final int radioButton8=0x7f090009;
+        public static final int radioButtonDay=0x7f09000a;
         public static final int radioGroup1=0x7f090007;
         public static final int table_layout1=0x7f090006;
-        public static final int table_shift12=0x7f09000a;
-        public static final int table_shift8=0x7f09000b;
+        public static final int table_shift12=0x7f09000b;
+        public static final int table_shift8=0x7f09000c;
+        public static final int table_shift_day=0x7f09000d;
         public static final int version_text=0x7f090000;
     }
     public static final class layout {
@@ -68,9 +71,10 @@ public final class R {
         public static final int email_author=0x7f060006;
         public static final int radio_12=0x7f060007;
         public static final int radio_8=0x7f060008;
+        public static final int radio_day=0x7f060009;
         public static final int settings_title=0x7f060002;
         public static final int title_activity_about=0x7f060003;
-        public static final int title_activity_calendar=0x7f060009;
+        public static final int title_activity_calendar=0x7f06000a;
     }
     public static final class style {
         /** 

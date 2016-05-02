@@ -67,7 +67,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (mSettings.contains(TypeShift.TYPE_SHIFT)) {
 			TypeShift type = TypeShift.valueOf(mSettings.getString(TypeShift.TYPE_SHIFT, TypeShift.TWELFTH.toString()));
 			if (type != bLogic.getTypeShift()) {
-				bLogic.changeTypeShift();
+				bLogic.changeTypeShift(type);
 			}
 		}
 		refreshViews();
