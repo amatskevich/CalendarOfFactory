@@ -1,19 +1,27 @@
 package by.matskevich.calendaroffactory;
 
 public enum StateShift8 implements Statable {
-	FIRST_NIGHT("1-я НОЧЬ"), SECOND_NIGHT("2-я НОЧЬ"), AFTER_NIGHT("ОТСЫПНОЙ"), DAY_OFF(
-			"ВЫХОДНОЙ"), DAY_OFF_BEFORE_EVENING("ВЫХОДНОЙ"), FIRST_EVENING("1-я С 4-х"), SECOND_EVENING(
-					"2-я С 4-х"), SHORT_DAY_OFF("ВЫХОДНОЙ"), FIRST_MORNING("1-я С УТРА"), SECOND_MORNING("2-я С УТРА"),;
+	FIRST_NIGHT("1-я НОЧЬ", "24"), SECOND_NIGHT("2-я НОЧЬ", "24"), AFTER_NIGHT("ОТСЫПНОЙ", "O"), DAY_OFF("ВЫХОДНОЙ",
+			"*"), DAY_OFF_BEFORE_EVENING("ВЫХОДНОЙ", "*"), FIRST_EVENING("1-я С 4-х", "16"), SECOND_EVENING("2-я С 4-х",
+					"16"), SHORT_DAY_OFF("ВЫХОДНОЙ",
+							"*"), FIRST_MORNING("1-я С УТРА", "8"), SECOND_MORNING("2-я С УТРА", "8"),;
 
 	final String state;
+	final String sign;
 
-	private StateShift8(String state) {
+	private StateShift8(String state, String sign) {
 		this.state = state;
+		this.sign = sign;
 	}
 
 	@Override
 	public String getState() {
 		return state;
+	}
+
+	@Override
+	public String getStatSign() {
+		return sign;
 	}
 
 	@Override

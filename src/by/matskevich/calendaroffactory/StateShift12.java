@@ -2,19 +2,26 @@ package by.matskevich.calendaroffactory;
 
 public enum StateShift12 implements Statable {
 
-	FIRST_DAY("1-я С УТРА"), SECOND_DAY("2-я С УТРА"), DAY_OFF_AFTER_WORK_DAY("ВЫХОДНОЙ"), AT_NIGHT(
-			"В НОЧЬ"), AFTER_NIGHT_AT_NIGHT("С НОЧИ В НОЧЬ"), AFTER_NIGHT(
-					"ОТСЫПНОЙ"), DAY_OFF("ВЫХОДНОЙ"), DAY_OFF_BEFORE_WORK_("ЗАВТРА С УТРА");
+	FIRST_DAY("1-я С УТРА", "8"), SECOND_DAY("2-я С УТРА", "8"), DAY_OFF_AFTER_WORK_DAY("ВЫХОДНОЙ", "*"), AT_NIGHT(
+			"В НОЧЬ", "20"), AFTER_NIGHT_AT_NIGHT("С НОЧИ В НОЧЬ", "20"), AFTER_NIGHT("ОТСЫПНОЙ",
+					"O"), DAY_OFF("ВЫХОДНОЙ", "*"), DAY_OFF_BEFORE_WORK_("ЗАВТРА С УТРА", "*");
 
 	final String state;
+	final String sign;
 
-	private StateShift12(String state) {
+	private StateShift12(String state, String sign) {
 		this.state = state;
+		this.sign = sign;
 	}
 
 	@Override
 	public String getState() {
 		return state;
+	}
+
+	@Override
+	public String getStatSign() {
+		return sign;
 	}
 
 	@Override

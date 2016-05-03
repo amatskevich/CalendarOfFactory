@@ -7,10 +7,10 @@ public enum TypeShift {
 			CharShiftDay.class, StateShiftDay.class);
 
 	public static final String TYPE_SHIFT = "TypeShift";
-	final int cycleDays;
-	final Calendar basicDate;
-	final Class<? extends CharShift> charShift;
-	final Class<? extends Statable> stateShift;
+	public final int cycleDays;
+	private final Calendar basicDate;
+	public final Class<? extends CharShift> charShift;
+	public final Class<? extends Statable> stateShift;
 
 	private TypeShift(int cycle, Class<? extends CharShift> charShift, Class<? extends Statable> stateShift) {
 		this.cycleDays = cycle;
@@ -20,4 +20,9 @@ public enum TypeShift {
 		this.charShift = charShift;
 		this.stateShift = stateShift;
 	}
+
+	public Calendar getBasicDate() {
+		return basicDate;
+	}
+	
 }

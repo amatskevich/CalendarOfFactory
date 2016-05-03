@@ -22,4 +22,9 @@ public enum CharShift8 implements CharShift {
 		this.nameChar = nameChar;
 	}
 
+	@Override
+	public TypeShift getTypeShift() {
+		return TypeShift.EIGHT;
+	}
+
 }

@@ -39,7 +39,7 @@
                 android:value="by.matskevich.calendaroffactory.MainActivity" />
         </activity>
         <activity
-            android:name=".CalendarActivity"
+            android:name=".calendar.CalendarActivity"
             android:label="@string/title_activity_calendar"
             android:parentActivityName=".MainActivity" >
             <meta-data

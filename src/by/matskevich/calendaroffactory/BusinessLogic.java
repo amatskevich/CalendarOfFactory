@@ -1,10 +1,11 @@
 package by.matskevich.calendaroffactory;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import by.matskevich.calendaroffactory.util.Constants;
+import by.matskevich.calendaroffactory.util.Utils;
 
 public final class BusinessLogic {
 
@@ -20,7 +21,11 @@ public final class BusinessLogic {
 
 	private BusinessLogic() {
 		date = Calendar.getInstance();
-		date.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DAY_OF_MONTH));
+		int year = date.get(Calendar.YEAR);
+		int month = date.get(Calendar.MONTH);
+		int day = date.get(Calendar.DAY_OF_MONTH);
+		date.clear();
+		date.set(year, month, day);
 		typeShift = TypeShift.TWELFTH;
 
 		firstCalculation();
@@ -35,19 +40,11 @@ public final class BusinessLogic {
 
 	private void firstCalculation() {
 		shiftList.clear();
-		int days = betweenStartDayEndDay(typeShift.basicDate, date);
-		int step = days % typeShift.cycleDays;
-		if (step < 0) {
-			step += typeShift.cycleDays;
-		}
+		int step = Utils.getStepOfCycle(typeShift, date);
 		for (CharShift cs : typeShift.charShift.getEnumConstants()) {
 			shiftList.add(new Shift(typeShift, cs, typeShift.stateShift.getEnumConstants()[step]));
 			step = (2 + step) % typeShift.cycleDays;
 		}
-	}
-
-	private int betweenStartDayEndDay(Calendar start, Calendar end) {
-		return (int) ((end.getTime().getTime() - start.getTime().getTime()) / (1000 * 60 * 60 * 24));
 	}
 
 	public void dayUp() {
@@ -69,11 +66,15 @@ public final class BusinessLogic {
 	}
 
 	public String getDate() {
-		DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-		return sdf.format(date.getTime());
+		return Constants.FORMATTER_DATE.format(date.getTime());
+	}
+
+	public Long getDateLong() {
+		return date.getTimeInMillis();
 	}
 
 	public void changeDate(int year, int month, int day) {
+		date.clear();
 		date.set(Calendar.YEAR, year);
 		date.set(Calendar.MONTH, month);
 		date.set(Calendar.DAY_OF_MONTH, day);

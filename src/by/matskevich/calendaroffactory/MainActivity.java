@@ -18,7 +18,9 @@ import android.widget.DatePicker;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import by.matskevich.calendaroffactory.calendar.CalendarActivity;
 import by.matskevich.calendaroffactory.settings.SettingsActivity;
+import by.matskevich.calendaroffactory.util.Constants;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -120,6 +122,23 @@ public class MainActivity extends Activity implements OnClickListener {
 		dateView.setText(bLogic.getDate());
 		table.removeAllViews();
 		boolean rowColor = true;
+
+		class RowListener implements OnClickListener {
+			private final CharShift shift;
+
+			public RowListener(CharShift shift) {
+				this.shift = shift;
+			}
+
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
+
+				intent.putExtra(Constants.EXTRA_SHIFT, shift.toString());
+				intent.putExtra(Constants.EXTRA_DATE, bLogic.getDateLong());
+				startActivity(intent);
+			}
+		}
+
 		for (Shift shift : bLogic.getShiftList()) {
 			TextView col1 = createColumn(shift.getCharShift().getNameChar());
 			TextView col2 = createColumn(shift.getStateShift().getState());
@@ -128,6 +147,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			row.setBackgroundColor(Color.parseColor(rowColor ? ROW1 : ROW2));
 			rowColor = rowColor ? false : true;
 			row.addView(col2);
+			row.setClickable(true);
+			row.setOnClickListener(new RowListener(shift.getCharShift()));
 			table.addView(row);
 		}
 	}
@@ -141,4 +162,5 @@ public class MainActivity extends Activity implements OnClickListener {
 		col1.setTextAppearance(this, android.R.attr.textAppearanceMedium);
 		return col1;
 	}
+
 }

@@ -26,4 +26,9 @@ public enum CharShiftDay implements CharShift {
 		this.nameChar = name;
 	}
 
+	@Override
+	public TypeShift getTypeShift() {
+		return TypeShift.DAY;
+	}
+
 }

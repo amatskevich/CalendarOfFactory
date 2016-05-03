@@ -7,4 +7,6 @@ public interface CharShift {
 
 	public void setNameChar(String name);
 	
+	public TypeShift getTypeShift();
+	
 }
