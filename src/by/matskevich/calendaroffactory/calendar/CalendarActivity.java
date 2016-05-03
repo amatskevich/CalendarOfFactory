@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -60,7 +61,7 @@ public class CalendarActivity extends Activity {
 
 		TableRow head = createTableRow(params);
 		for (String day : Constants.WEEK_DAYS) {
-			head.addView(createField(day, param));
+			head.addView(createField(day, "", param));
 		}
 		calendar.addView(head);
 
@@ -76,13 +77,14 @@ public class CalendarActivity extends Activity {
 			step = (2 + step) % typeShift.cycleDays;
 		}
 		Statable stateShift = typeShift.stateShift.getEnumConstants()[step];
+
 		int weekSize = 7;
 		int dayWeek = (firstDay.get(Calendar.DAY_OF_WEEK) + 5) % weekSize;// start_from_monday
 		int maxDays = firstDay.getActualMaximum(Calendar.DAY_OF_MONTH);
 		TableRow tableRow = createTableRow(params);
 		// add empty fields
 		for (int j = 0; j < dayWeek; j++) {
-			tableRow.addView(createField(" ", param));
+			tableRow.addView(createField(" ", "", param));
 		}
 		for (int i = 1; i <= maxDays; i++, dayWeek++) {
 			if (dayWeek >= weekSize) {
@@ -90,24 +92,41 @@ public class CalendarActivity extends Activity {
 				calendar.addView(tableRow);
 				tableRow = createTableRow(params);
 			}
-			tableRow.addView(createField(stateShift.getStatSign(), param));
+			tableRow.addView(createField(stateShift.getStatSign(), ((Integer) i).toString(), param));
 			stateShift = stateShift.next();
 		}
 		// add empty fields
 		for (int j = dayWeek; j < weekSize; j++) {
-			tableRow.addView(createField(" ", param));
+			tableRow.addView(createField(" ", "", param));
 		}
 
 		calendar.addView(tableRow);
 	}
 
-	private View createField(String day, android.widget.TableRow.LayoutParams param) {
+	private View createField(String sign, String day, android.widget.TableRow.LayoutParams param) {
+		LinearLayout cell = createLinear(param);
+		TextView textSign = createText(sign, Gravity.LEFT);
+		TextView textDay = createText(day, Gravity.RIGHT);
+
+		cell.addView(textSign);
+		cell.addView(textDay);
+		return cell;
+	}
+
+	private LinearLayout createLinear(android.widget.TableRow.LayoutParams param) {
+		LinearLayout cell = new LinearLayout(this);
+		cell.setBackgroundColor(Color.rgb(255, 255, 255));
+		cell.setGravity(Gravity.CENTER_HORIZONTAL);
+		cell.setLayoutParams(param);
+		cell.setOrientation(LinearLayout.VERTICAL);
+		return cell;
+	}
+
+	private TextView createText(String text, int gravity) {
 		TextView reson = new TextView(this);
-		reson.setText(day);
-		reson.setLayoutParams(param);
-		reson.setGravity(Gravity.CENTER_HORIZONTAL);
-		reson.setBackgroundColor(Color.rgb(255, 255, 255));
+		reson.setText(text);
 		reson.setPadding(0, 0, 4, 4);
+		reson.setGravity(gravity);
 		return reson;
 	}
 
