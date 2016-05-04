@@ -44,12 +44,12 @@ public final class R {
         public static final int date_layout=0x7f090004;
         public static final int date_up=0x7f090007;
         public static final int empty_item=0x7f090010;
-        public static final int month=0x7f090001;
+        public static final int month=0x7f090002;
         public static final int radioButton12=0x7f09000a;
         public static final int radioButton8=0x7f09000b;
         public static final int radioButtonDay=0x7f09000c;
         public static final int radioGroup1=0x7f090009;
-        public static final int shift_char=0x7f090002;
+        public static final int shift_char=0x7f090001;
         public static final int table_layout1=0x7f090008;
         public static final int table_shift12=0x7f09000d;
         public static final int table_shift8=0x7f09000e;

@@ -1,17 +1,34 @@
 package by.matskevich.calendaroffactory;
 
+import android.graphics.Color;
+import by.matskevich.calendaroffactory.util.Constants;
+
 public enum StateShift12 implements Statable {
 
-	FIRST_DAY("1-я С УТРА", "8"), SECOND_DAY("2-я С УТРА", "8"), DAY_OFF_AFTER_WORK_DAY("ВЫХОДНОЙ", "*"), AT_NIGHT(
-			"В НОЧЬ", "20"), AFTER_NIGHT_AT_NIGHT("С НОЧИ В НОЧЬ", "20"), AFTER_NIGHT("ОТСЫПНОЙ",
-					"O"), DAY_OFF("ВЫХОДНОЙ", "*"), DAY_OFF_BEFORE_WORK_("ЗАВТРА С УТРА", "*");
+	FIRST_DAY("1-я С УТРА", "8", Constants.COLOR_8),
+
+	SECOND_DAY("2-я С УТРА", "8", Constants.COLOR_8),
+
+	DAY_OFF_AFTER_WORK_DAY("ВЫХОДНОЙ", "*", Constants.COLOR_WHITE),
+
+	AT_NIGHT("В НОЧЬ", "20", Constants.COLOR_20_24),
+
+	AFTER_NIGHT_AT_NIGHT("С НОЧИ В НОЧЬ", "20", Constants.COLOR_20_24),
+
+	AFTER_NIGHT("ОТСЫПНОЙ", "O", Constants.COLOR_O),
+
+	DAY_OFF("ВЫХОДНОЙ", "*", Constants.COLOR_WHITE),
+
+	DAY_OFF_BEFORE_WORK_("ЗАВТРА С УТРА", "*", Constants.COLOR_WHITE);
 
 	final String state;
 	final String sign;
+	final int color;
 
-	private StateShift12(String state, String sign) {
+	private StateShift12(String state, String sign, String color) {
 		this.state = state;
 		this.sign = sign;
+		this.color = Color.parseColor(color);
 	}
 
 	@Override
@@ -22,6 +39,11 @@ public enum StateShift12 implements Statable {
 	@Override
 	public String getStatSign() {
 		return sign;
+	}
+
+	@Override
+	public int getColor() {
+		return color;
 	}
 
 	@Override

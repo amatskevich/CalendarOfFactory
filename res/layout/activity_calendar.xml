@@ -2,26 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_gravity="center_horizontal"
     android:background="@color/backgroundApp"
     android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/month"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/shift_char"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/month"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:textStyle="bold" />
 
     <TableLayout
         android:id="@+id/calendar_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
+        android:gravity="center_horizontal"
         android:stretchColumns="*" >
     </TableLayout>
 

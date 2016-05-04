@@ -24,9 +24,6 @@ import by.matskevich.calendaroffactory.util.Constants;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-	private static final String ROW1 = "#B9EFFF";
-	private static final String ROW2 = "#FAFAFA";
-
 	private SharedPreferences mSettings;
 	protected Button addDay;
 	protected Button decreaseDay;
@@ -144,7 +141,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			TextView col2 = createColumn(shift.getStateShift().getState());
 			TableRow row = new TableRow(this);
 			row.addView(col1);
-			row.setBackgroundColor(Color.parseColor(rowColor ? ROW1 : ROW2));
+			row.setBackgroundColor(Color.parseColor(rowColor ? Constants.COLOR_ROW1 : Constants.COLOR_ROW2));
+			row.setPadding(0, 10, 0, 10);
 			rowColor = rowColor ? false : true;
 			row.addView(col2);
 			row.setClickable(true);

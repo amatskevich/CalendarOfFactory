@@ -11,9 +11,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
-        android:paddingTop="20dip"
+        android:padding="10dip"
         android:paddingBottom="20dip"
-        android:padding="10dip" >
+        android:paddingTop="30dip" >
 
         <Button
             android:id="@+id/date_down"
@@ -42,8 +42,9 @@
         android:id="@+id/table_layout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        android:shrinkColumns="0,1" >
+        android:paddingTop="10dp"
+        android:shrinkColumns="0,1"
+        android:stretchColumns="*" >
     </TableLayout>
 
 </LinearLayout>

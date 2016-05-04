@@ -6,6 +6,7 @@ import java.util.Date;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -47,8 +48,8 @@ public class CalendarActivity extends Activity {
 		Intent intent = getIntent();
 		shift = findShift(intent.getStringExtra(Constants.EXTRA_SHIFT));
 		date = createDate(intent.getLongExtra(Constants.EXTRA_DATE, new Date().getTime()));
-		monthText.setText(MonthRus.values()[date.get(Calendar.MONTH)].name);
-		shiftText.setText(shift.getNameChar());
+		monthText.setText(MonthRus.values()[date.get(Calendar.MONTH)].name + " " + date.get(Calendar.YEAR));
+		shiftText.setText("Смена: " + shift.getNameChar());
 
 		buildTable();
 	}
@@ -57,11 +58,14 @@ public class CalendarActivity extends Activity {
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
 		TableRow.LayoutParams param = new TableRow.LayoutParams();
-		param.setMargins(0, 0, 1, 1);
+		param.setMargins(1, 0, 1, 1);
 
 		TableRow head = createTableRow(params);
 		for (String day : Constants.WEEK_DAYS) {
-			head.addView(createField(day, "", param));
+			TextView tmp = createText(day, Gravity.CENTER_HORIZONTAL);
+			tmp.setLayoutParams(param);
+			tmp.setBackgroundColor(Color.parseColor(Constants.COLOR_HEAD));
+			head.addView(tmp);
 		}
 		calendar.addView(head);
 
@@ -84,7 +88,7 @@ public class CalendarActivity extends Activity {
 		TableRow tableRow = createTableRow(params);
 		// add empty fields
 		for (int j = 0; j < dayWeek; j++) {
-			tableRow.addView(createField(" ", "", param));
+			tableRow.addView(createLinear(Color.WHITE, param));
 		}
 		for (int i = 1; i <= maxDays; i++, dayWeek++) {
 			if (dayWeek >= weekSize) {
@@ -92,30 +96,32 @@ public class CalendarActivity extends Activity {
 				calendar.addView(tableRow);
 				tableRow = createTableRow(params);
 			}
-			tableRow.addView(createField(stateShift.getStatSign(), ((Integer) i).toString(), param));
+			tableRow.addView(createField(stateShift, ((Integer) i).toString(), param));
 			stateShift = stateShift.next();
 		}
 		// add empty fields
 		for (int j = dayWeek; j < weekSize; j++) {
-			tableRow.addView(createField(" ", "", param));
+			tableRow.addView(createLinear(Color.WHITE, param));
 		}
 
 		calendar.addView(tableRow);
 	}
 
-	private View createField(String sign, String day, android.widget.TableRow.LayoutParams param) {
-		LinearLayout cell = createLinear(param);
-		TextView textSign = createText(sign, Gravity.LEFT);
-		TextView textDay = createText(day, Gravity.RIGHT);
+	private View createField(Statable stateShift, String day, android.widget.TableRow.LayoutParams param) {
+		LinearLayout cell = createLinear(stateShift.getColor(), param);
+		TextView textDay = createText(day, Gravity.LEFT);
+		textDay.setTextColor(Color.parseColor(Constants.COLOR_DAY));
+		textDay.setTypeface(null, Typeface.BOLD_ITALIC);
+		TextView textSign = createText(stateShift.getStatSign(), Gravity.RIGHT);
 
-		cell.addView(textSign);
 		cell.addView(textDay);
+		cell.addView(textSign);
 		return cell;
 	}
 
-	private LinearLayout createLinear(android.widget.TableRow.LayoutParams param) {
+	private LinearLayout createLinear(int backgroundColor, android.widget.TableRow.LayoutParams param) {
 		LinearLayout cell = new LinearLayout(this);
-		cell.setBackgroundColor(Color.rgb(255, 255, 255));
+		cell.setBackgroundColor(backgroundColor);
 		cell.setGravity(Gravity.CENTER_HORIZONTAL);
 		cell.setLayoutParams(param);
 		cell.setOrientation(LinearLayout.VERTICAL);
@@ -125,7 +131,7 @@ public class CalendarActivity extends Activity {
 	private TextView createText(String text, int gravity) {
 		TextView reson = new TextView(this);
 		reson.setText(text);
-		reson.setPadding(0, 0, 4, 4);
+		reson.setPadding(4, 4, 4, 4);
 		reson.setGravity(gravity);
 		return reson;
 	}
@@ -135,6 +141,7 @@ public class CalendarActivity extends Activity {
 		tableRow.setBackgroundColor(Color.BLACK);
 		tableRow.setPadding(0, 1, 0, 1);
 		tableRow.setLayoutParams(params);
+		tableRow.setGravity(Gravity.CENTER_HORIZONTAL);
 		return tableRow;
 	}
 

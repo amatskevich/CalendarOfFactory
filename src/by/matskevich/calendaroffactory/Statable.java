@@ -5,4 +5,5 @@ public interface Statable {
 	public Statable next();
 	public Statable before();
 	public String getStatSign();
+	public int getColor();
 }

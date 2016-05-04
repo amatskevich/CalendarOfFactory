@@ -1,17 +1,37 @@
 package by.matskevich.calendaroffactory;
 
+import android.graphics.Color;
+import by.matskevich.calendaroffactory.util.Constants;
+
 public enum StateShift8 implements Statable {
-	FIRST_NIGHT("1-я НОЧЬ", "24"), SECOND_NIGHT("2-я НОЧЬ", "24"), AFTER_NIGHT("ОТСЫПНОЙ", "O"), DAY_OFF("ВЫХОДНОЙ",
-			"*"), DAY_OFF_BEFORE_EVENING("ВЫХОДНОЙ", "*"), FIRST_EVENING("1-я С 4-х", "16"), SECOND_EVENING("2-я С 4-х",
-					"16"), SHORT_DAY_OFF("ВЫХОДНОЙ",
-							"*"), FIRST_MORNING("1-я С УТРА", "8"), SECOND_MORNING("2-я С УТРА", "8"),;
+	FIRST_NIGHT("1-я НОЧЬ", "24", Constants.COLOR_20_24),
+
+	SECOND_NIGHT("2-я НОЧЬ", "24", Constants.COLOR_20_24),
+
+	AFTER_NIGHT("ОТСЫПНОЙ", "O", Constants.COLOR_O),
+
+	DAY_OFF("ВЫХОДНОЙ", "*", Constants.COLOR_WHITE),
+
+	DAY_OFF_BEFORE_EVENING("ВЫХОДНОЙ", "*", Constants.COLOR_WHITE),
+
+	FIRST_EVENING("1-я С 4-х", "16", Constants.COLOR_16),
+
+	SECOND_EVENING("2-я С 4-х", "16", Constants.COLOR_16),
+
+	SHORT_DAY_OFF("ВЫХОДНОЙ", "*", Constants.COLOR_WHITE),
+
+	FIRST_MORNING("1-я С УТРА", "8", Constants.COLOR_8),
+
+	SECOND_MORNING("2-я С УТРА", "8", Constants.COLOR_8),;
 
 	final String state;
 	final String sign;
+	final int color;
 
-	private StateShift8(String state, String sign) {
+	private StateShift8(String state, String sign, String color) {
 		this.state = state;
 		this.sign = sign;
+		this.color = Color.parseColor(color);
 	}
 
 	@Override
@@ -22,6 +42,11 @@ public enum StateShift8 implements Statable {
 	@Override
 	public String getStatSign() {
 		return sign;
+	}
+
+	@Override
+	public int getColor() {
+		return color;
 	}
 
 	@Override
