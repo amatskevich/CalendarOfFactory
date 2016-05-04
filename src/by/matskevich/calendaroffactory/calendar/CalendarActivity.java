@@ -41,17 +41,39 @@ public class CalendarActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calendar);
 
+		Intent intent = getIntent();
+		shift = findShift(intent.getStringExtra(Constants.EXTRA_SHIFT));
+		date = createDate(intent.getLongExtra(Constants.EXTRA_DATE, new Date().getTime()));
+
 		calendar = (TableLayout) findViewById(R.id.calendar_view);
 		monthText = (TextView) findViewById(R.id.month);
 		shiftText = (TextView) findViewById(R.id.shift_char);
 
-		Intent intent = getIntent();
-		shift = findShift(intent.getStringExtra(Constants.EXTRA_SHIFT));
-		date = createDate(intent.getLongExtra(Constants.EXTRA_DATE, new Date().getTime()));
-		monthText.setText(MonthRus.values()[date.get(Calendar.MONTH)].name + " " + date.get(Calendar.YEAR));
+		calendar.setOnTouchListener(new OnSwipeTouchListener(CalendarActivity.this) {
+			public void onSwipeRight() {
+				rebuildView(-1);
+			}
+
+			public void onSwipeLeft() {
+				rebuildView(1);
+			}
+
+			private void rebuildView(int i) {
+				date.add(Calendar.MONTH, i);
+				setMonthText(date);
+				calendar.removeAllViews();
+				buildTable();
+			}
+		});
+
+		setMonthText(date);
 		shiftText.setText("Смена: " + shift.getNameChar());
 
 		buildTable();
+	}
+
+	private void setMonthText(Calendar d) {
+		monthText.setText(MonthRus.values()[d.get(Calendar.MONTH)].name + " " + d.get(Calendar.YEAR));
 	}
 
 	private void buildTable() {
