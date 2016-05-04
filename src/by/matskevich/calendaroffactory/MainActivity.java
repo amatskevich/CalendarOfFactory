@@ -1,8 +1,11 @@
 package by.matskevich.calendaroffactory;
 
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -109,8 +112,17 @@ public class MainActivity extends Activity implements OnClickListener {
 			bLogic.dayDown();
 			refreshViews();
 		} else if (v == dateView) {
-			new DatePickerDialog(MainActivity.this, dateListener, bLogic.getYear(), bLogic.getMonth(), bLogic.getDay())
-					.show();
+			DatePickerDialog dialog = new DatePickerDialog(MainActivity.this, dateListener, bLogic.getYear(),
+					bLogic.getMonth(), bLogic.getDay());
+			dialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Сегодня", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface d, int id) {
+					d.dismiss();
+					Calendar c = Calendar.getInstance();
+					bLogic.changeDate(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+					refreshViews();
+				}
+			});
+			dialog.show();
 		}
 
 	}
