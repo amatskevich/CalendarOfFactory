@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:paddingTop="10dp"
+        android:textColor="#000000"
         android:textStyle="bold" />
 
     <TextView
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="10dp"
+        android:textColor="#000000"
         android:textStyle="bold" />
 
     <TableLayout

@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="21.03.2016"
+            android:textColor="#000000"
             android:textSize="33sp" />
 
         <Button

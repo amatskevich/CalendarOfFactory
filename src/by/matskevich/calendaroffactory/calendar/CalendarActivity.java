@@ -135,6 +135,7 @@ public class CalendarActivity extends Activity {
 		textDay.setTextColor(Color.parseColor(Constants.COLOR_DAY));
 		textDay.setTypeface(null, Typeface.BOLD_ITALIC);
 		TextView textSign = createText(stateShift.getStatSign(), Gravity.RIGHT);
+		textSign.setTextColor(Color.BLACK);
 
 		cell.addView(textDay);
 		cell.addView(textSign);
