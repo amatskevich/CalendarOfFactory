@@ -2,53 +2,17 @@
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundApp" >
+    android:background="@color/backgroundApp" 
+    android:paddingTop="5dp">
 
-    <RadioGroup
-        android:id="@+id/radioGroup1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <RadioButton
-            android:id="@+id/radioButton12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_weight="3"
-            android:checked="true"
-            android:onClick="onClickRadioSelect"
-            android:text="@string/radio_12"
-            android:textSize="15sp" />
-
-        <RadioButton
-            android:id="@+id/radioButton8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_weight="3"
-            android:checked="false"
-            android:onClick="onClickRadioSelect"
-            android:text="@string/radio_8"
-            android:textSize="15sp" />
-
-        <RadioButton
-            android:id="@+id/radioButtonDay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_weight="3"
-            android:checked="false"
-            android:onClick="onClickRadioSelect"
-            android:text="@string/radio_day"
-            android:textSize="15sp" />
-    </RadioGroup>
+    <include layout="@layout/inc_radio_shift" />
 
     <TableLayout
         android:id="@+id/table_shift12"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/tableSetting_12"
+        android:layout_marginTop="15dip"
         android:stretchColumns="*"
         android:visibility="visible" >
     </TableLayout>
@@ -58,6 +22,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/tableSetting_8"
+        android:layout_marginTop="15dip"
         android:stretchColumns="*"
         android:visibility="gone" >
     </TableLayout>
@@ -67,6 +32,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@color/tableSetting_day"
+        android:layout_marginTop="15dip"
         android:stretchColumns="*"
         android:visibility="gone" >
     </TableLayout>

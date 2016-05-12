@@ -12,6 +12,7 @@ public final class R {
     }
     public static final class color {
         public static final int backgroundApp=0x7f040000;
+        public static final int radioButtonText=0x7f040004;
         public static final int tableSetting_12=0x7f040001;
         public static final int tableSetting_8=0x7f040002;
         public static final int tableSetting_day=0x7f040003;
@@ -28,12 +29,15 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int ic_action_overflow=0x7f020000;
-        public static final int left=0x7f020001;
-        public static final int left_min=0x7f020002;
-        public static final int polimir=0x7f020003;
-        public static final int right=0x7f020004;
-        public static final int right_min=0x7f020005;
+        public static final int a=0x7f020000;
+        public static final int b=0x7f020001;
+        public static final int ic_action_overflow=0x7f020002;
+        public static final int left=0x7f020003;
+        public static final int left_min=0x7f020004;
+        public static final int polimir=0x7f020005;
+        public static final int radiobuttonbackground=0x7f020006;
+        public static final int right=0x7f020007;
+        public static final int right_min=0x7f020008;
     }
     public static final class id {
         public static final int action_about=0x7f090012;
@@ -45,15 +49,15 @@ public final class R {
         public static final int date_up=0x7f090007;
         public static final int empty_item=0x7f090010;
         public static final int month=0x7f090002;
-        public static final int radioButton12=0x7f09000a;
-        public static final int radioButton8=0x7f09000b;
-        public static final int radioButtonDay=0x7f09000c;
-        public static final int radioGroup1=0x7f090009;
+        public static final int radioButton12=0x7f09000d;
+        public static final int radioButton8=0x7f09000e;
+        public static final int radioButtonDay=0x7f09000f;
+        public static final int radioGroup1=0x7f09000c;
         public static final int shift_char=0x7f090001;
         public static final int table_layout1=0x7f090008;
-        public static final int table_shift12=0x7f09000d;
-        public static final int table_shift8=0x7f09000e;
-        public static final int table_shift_day=0x7f09000f;
+        public static final int table_shift12=0x7f090009;
+        public static final int table_shift8=0x7f09000a;
+        public static final int table_shift_day=0x7f09000b;
         public static final int version_text=0x7f090000;
     }
     public static final class layout {
@@ -61,6 +65,7 @@ public final class R {
         public static final int activity_calendar=0x7f030001;
         public static final int activity_main=0x7f030002;
         public static final int activity_settings=0x7f030003;
+        public static final int inc_radio_shift=0x7f030004;
     }
     public static final class menu {
         public static final int main=0x7f080000;

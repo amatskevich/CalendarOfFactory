@@ -6,6 +6,7 @@ import java.util.Map;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -25,17 +26,14 @@ import by.matskevich.calendaroffactory.CharShift8;
 import by.matskevich.calendaroffactory.CharShiftDay;
 import by.matskevich.calendaroffactory.R;
 import by.matskevich.calendaroffactory.TypeShift;
+import by.matskevich.calendaroffactory.util.RadioGroupShiftable;
+import by.matskevich.calendaroffactory.util.Utils;
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends Activity implements RadioGroupShiftable {
 
 	private static final String HEAP_8 = "Наименования 8-х часовых смен";
 	private static final String HEAP_12 = "Наименования 12-х часовых смен";
 	private static final String HEAP_DAY = "Наименования смен 2 через 2 по 12ч";
-	private int selectedRadio;
-	protected RadioGroup radioGroup;
-	private RadioButton rbutton12;
-	private RadioButton rbutton8;
-	private RadioButton rbuttonDay;
 	private TableLayout table8;
 	private TableLayout table12;
 	private TableLayout tableDay;
@@ -49,10 +47,6 @@ public class SettingsActivity extends Activity {
 		setContentView(R.layout.activity_settings);
 
 		mSettings = getSharedPreferences(BusinessLogic.APP_PREFERENCE, Context.MODE_PRIVATE);
-		radioGroup = (RadioGroup) findViewById(R.id.radioGroup1);
-		rbutton8 = (RadioButton) findViewById(R.id.radioButton8);
-		rbutton12 = (RadioButton) findViewById(R.id.radioButton12);
-		rbuttonDay = (RadioButton) findViewById(R.id.radioButtonDay);
 		table8 = (TableLayout) findViewById(R.id.table_shift8);
 		table12 = (TableLayout) findViewById(R.id.table_shift12);
 		tableDay = (TableLayout) findViewById(R.id.table_shift_day);
@@ -61,25 +55,24 @@ public class SettingsActivity extends Activity {
 		buildTables(table12, CharShift12.class, HEAP_12);
 		buildTables(tableDay, CharShiftDay.class, HEAP_DAY);
 		setRadioButton();
-		selectedRadio = radioGroup.getCheckedRadioButtonId();
 	}
 
 	private void setRadioButton() {
 		if (mSettings.contains(TypeShift.TYPE_SHIFT)) {
-			radioGroup.clearCheck();
+			((RadioGroup) findViewById(R.id.radioGroup1)).clearCheck();
 			type = TypeShift.valueOf(mSettings.getString(TypeShift.TYPE_SHIFT, TypeShift.TWELFTH.toString()));
 			switch (type) {
 			case EIGHT:
-				rbutton8.setChecked(true);
-				setVisible8();
+				((RadioButton) findViewById(R.id.radioButton8)).setChecked(true);
+				do8();
 				break;
 			case DAY:
-				rbuttonDay.setChecked(true);
-				setVisibleDay();
+				((RadioButton) findViewById(R.id.radioButtonDay)).setChecked(true);
+				doDay();
 				break;
 			default:
-				rbutton12.setChecked(true);
-				setVisible12();
+				((RadioButton) findViewById(R.id.radioButton12)).setChecked(true);
+				do12();
 			}
 		}
 	}
@@ -117,28 +110,6 @@ public class SettingsActivity extends Activity {
 		return col1;
 	}
 
-	public void onClickRadioSelect(View v) {
-		if (selectedRadio != v.getId()) {
-			selectedRadio = v.getId();
-			switch (selectedRadio) {
-			case R.id.radioButton8:
-				type = TypeShift.EIGHT;
-				setVisible8();
-				break;
-			case R.id.radioButtonDay:
-				type = TypeShift.DAY;
-				setVisibleDay();
-				break;
-			default:
-				type = TypeShift.TWELFTH;
-				setVisible12();
-			}
-			SharedPreferences.Editor editor = mSettings.edit();
-			editor.putString(TypeShift.TYPE_SHIFT, type.toString());
-			editor.apply();
-		}
-	}
-
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -154,22 +125,45 @@ public class SettingsActivity extends Activity {
 		editor.apply();
 	}
 
-	private void setVisible8() {
-		table8.setVisibility(View.VISIBLE);
-		table12.setVisibility(View.GONE);
-		tableDay.setVisibility(View.GONE);
+	@Override
+	public void onClickRadioSelect(View v) {
+		Utils.onClickRadioSelect(v, this);
 	}
 
-	private void setVisible12() {
+	@Override
+	public void do12() {
 		table8.setVisibility(View.GONE);
 		table12.setVisibility(View.VISIBLE);
 		tableDay.setVisibility(View.GONE);
 	}
 
-	private void setVisibleDay() {
+	@Override
+	public void doDay() {
 		table8.setVisibility(View.GONE);
 		table12.setVisibility(View.GONE);
 		tableDay.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void do8() {
+		table8.setVisibility(View.VISIBLE);
+		table12.setVisibility(View.GONE);
+		tableDay.setVisibility(View.GONE);
+	}
+
+	@Override
+	public Editor getSettingsEdit() {
+		return mSettings.edit();
+	}
+
+	@Override
+	public TypeShift getTypeShift() {
+		return type;
+	}
+
+	@Override
+	public void setTypeShift(TypeShift type) {
+		this.type = type;
 	}
 
 }

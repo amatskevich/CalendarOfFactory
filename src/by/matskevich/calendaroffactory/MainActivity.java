@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -18,14 +19,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import by.matskevich.calendaroffactory.calendar.CalendarActivity;
 import by.matskevich.calendaroffactory.settings.SettingsActivity;
 import by.matskevich.calendaroffactory.util.Constants;
+import by.matskevich.calendaroffactory.util.RadioGroupShiftable;
+import by.matskevich.calendaroffactory.util.Utils;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener, RadioGroupShiftable {
 
 	private SharedPreferences mSettings;
 	protected Button addDay;
@@ -70,6 +75,17 @@ public class MainActivity extends Activity implements OnClickListener {
 			TypeShift type = TypeShift.valueOf(mSettings.getString(TypeShift.TYPE_SHIFT, TypeShift.TWELFTH.toString()));
 			if (type != bLogic.getTypeShift()) {
 				bLogic.changeTypeShift(type);
+				((RadioGroup) findViewById(R.id.radioGroup1)).clearCheck();
+			}
+			switch (type) {
+			case EIGHT:
+				((RadioButton) findViewById(R.id.radioButton8)).setChecked(true);
+				break;
+			case DAY:
+				((RadioButton) findViewById(R.id.radioButtonDay)).setChecked(true);
+				break;
+			default:
+				((RadioButton) findViewById(R.id.radioButton12)).setChecked(true);
 			}
 		}
 		refreshViews();
@@ -171,6 +187,41 @@ public class MainActivity extends Activity implements OnClickListener {
 		col1.setGravity(Gravity.CENTER_HORIZONTAL);
 		col1.setTextAppearance(this, android.R.attr.textAppearanceMedium);
 		return col1;
+	}
+
+	@Override
+	public void onClickRadioSelect(View v) {
+		Utils.onClickRadioSelect(v, this);
+	}
+
+	@Override
+	public void do12() {
+		refreshViews();
+	}
+
+	@Override
+	public void doDay() {
+		refreshViews();
+	}
+
+	@Override
+	public void do8() {
+		refreshViews();
+	}
+
+	@Override
+	public Editor getSettingsEdit() {
+		return mSettings.edit();
+	}
+
+	@Override
+	public TypeShift getTypeShift() {
+		return bLogic.getTypeShift();
+	}
+
+	@Override
+	public void setTypeShift(TypeShift type) {
+		bLogic.changeTypeShift(type);
 	}
 
 }
