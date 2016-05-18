@@ -18,7 +18,8 @@
         android:onClick="onClickRadioSelect"
         android:padding="5dp"
         android:text="@string/radio_12"
-        android:textColor="@color/radioButtonText" />
+        android:textColor="@color/radioButtonText"
+        android:textSize="20sp" />
 
     <RadioButton
         android:id="@+id/radioButton8"
@@ -30,7 +31,8 @@
         android:onClick="onClickRadioSelect"
         android:padding="5dp"
         android:text="@string/radio_8"
-        android:textColor="@color/radioButtonText" />
+        android:textColor="@color/radioButtonText"
+        android:textSize="20sp" />
 
     <RadioButton
         android:id="@+id/radioButtonDay"
@@ -42,6 +44,7 @@
         android:onClick="onClickRadioSelect"
         android:padding="5dp"
         android:text="@string/radio_day"
-        android:textColor="@color/radioButtonText" />
+        android:textColor="@color/radioButtonText"
+        android:textSize="20sp" />
 
 </RadioGroup>
