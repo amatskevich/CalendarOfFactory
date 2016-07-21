@@ -7,39 +7,53 @@
 
     <include layout="@layout/inc_radio_shift" />
 
-    <LinearLayout
-        android:id="@+id/date_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:padding="10dip"
-        android:paddingBottom="20dip"
-        android:paddingTop="30dip" >
 
-        <Button
-            android:id="@+id/date_down"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:drawableLeft="@drawable/left" />
-
-        <TextView
-            android:id="@+id/date"
+    <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="21.03.2016"
-            android:textColor="#000000"
-            android:textSize="33sp" />
+            android:columnCount="3"
+            android:padding="10dip"
+            android:paddingBottom="20dip"
+            android:paddingTop="30dip" >
 
         <Button
-            android:id="@+id/date_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:drawableRight="@drawable/right" />
-    </LinearLayout>
+                android:id="@+id/date_down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:drawableLeft="@drawable/left"
+                android:layout_rowSpan="2"/>
+
+        <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="21.03.2016"
+                android:textColor="#000000"
+                android:textSize="33sp" />
+
+        <TextView
+                android:id="@+id/dateWeek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Monday"
+                android:layout_column="1"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
+
+        <Button
+                android:id="@+id/date_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_gravity="fill"
+                android:drawableRight="@drawable/right"
+                android:layout_column="2"
+                android:layout_rowSpan="2"/>
+    </GridLayout>
 
     <TableLayout
         android:id="@+id/table_layout1"

@@ -69,6 +69,10 @@ public final class BusinessLogic {
 		return Constants.FORMATTER_DATE.format(date.getTime());
 	}
 
+	public String getDateWeek() {
+		return Constants.WEEK_DAYS_FULL[date.get(Calendar.DAY_OF_WEEK) - 1];
+	}
+
 	public Long getDateLong() {
 		return date.getTimeInMillis();
 	}

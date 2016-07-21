@@ -36,6 +36,7 @@ public class MainActivity extends Activity implements OnClickListener, RadioGrou
 	protected Button addDay;
 	protected Button decreaseDay;
 	protected TextView dateView;
+	protected TextView dateWeekView;
 	protected TableLayout table;
 	private BusinessLogic bLogic;
 
@@ -61,6 +62,8 @@ public class MainActivity extends Activity implements OnClickListener, RadioGrou
 		decreaseDay.setOnClickListener(this);
 		dateView = (TextView) findViewById(R.id.date);
 		dateView.setOnClickListener(this);
+		dateWeekView = (TextView) findViewById(R.id.dateWeek);
+		dateWeekView.setOnClickListener(this);
 		table = (TableLayout) findViewById(R.id.table_layout1);
 		readNameShift(CharShift8.class);
 		readNameShift(CharShift12.class);
@@ -127,7 +130,7 @@ public class MainActivity extends Activity implements OnClickListener, RadioGrou
 		} else if (v == decreaseDay) {
 			bLogic.dayDown();
 			refreshViews();
-		} else if (v == dateView) {
+		} else if (v == dateView || v == dateWeekView) {
 			DatePickerDialog dialog = new DatePickerDialog(MainActivity.this, dateListener, bLogic.getYear(),
 					bLogic.getMonth(), bLogic.getDay());
 			dialog.setButton(DialogInterface.BUTTON_NEUTRAL, "Сегодня", new DialogInterface.OnClickListener() {
@@ -145,6 +148,7 @@ public class MainActivity extends Activity implements OnClickListener, RadioGrou
 
 	private void refreshViews() {
 		dateView.setText(bLogic.getDate());
+		dateWeekView.setText(bLogic.getDateWeek());
 		table.removeAllViews();
 		boolean rowColor = true;
 
