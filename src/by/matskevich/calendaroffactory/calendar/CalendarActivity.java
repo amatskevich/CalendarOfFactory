@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -32,6 +33,7 @@ public class CalendarActivity extends Activity {
 	private TextView monthText;
 	private TextView shiftText;
 
+	private Calendar currentDate;
 	private Calendar date;
 	private CharShift shift;
 	private TypeShift typeShift;
@@ -40,6 +42,9 @@ public class CalendarActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_calendar);
+
+		currentDate = Calendar.getInstance();
+		currentDate.setFirstDayOfWeek(Calendar.MONDAY);
 
 		Intent intent = getIntent();
 		shift = findShift(intent.getStringExtra(Constants.EXTRA_SHIFT));
@@ -127,6 +132,25 @@ public class CalendarActivity extends Activity {
 		}
 
 		calendar.addView(tableRow);
+		setCurrentDateIfNeed();
+	}
+
+	private void setCurrentDateIfNeed() {
+		if (date.get(Calendar.YEAR) == currentDate.get(Calendar.YEAR)
+				&& date.get(Calendar.MONTH) == currentDate.get(Calendar.MONTH)) {
+			int curNumRow = currentDate.get(Calendar.WEEK_OF_MONTH);
+			int curNumCol = (currentDate.get(Calendar.DAY_OF_WEEK) + 5) % 7;// 0 - Monday
+			try {
+				TableRow curRow = (TableRow) calendar.getChildAt(curNumRow);
+				LinearLayout curField = (LinearLayout) curRow.getChildAt(curNumCol);
+				View txt = curField.getChildAt(0);
+				txt.setBackgroundColor(Color.YELLOW);
+			} catch (ClassCastException ex) {
+				Log.e("mtsk", "Not marked current date", ex);
+			} catch (NullPointerException ex) {
+				Log.e("mtsk", "Not marked current date", ex);
+			}
+		}
 	}
 
 	private View createField(Statable stateShift, String day, android.widget.TableRow.LayoutParams param) {
