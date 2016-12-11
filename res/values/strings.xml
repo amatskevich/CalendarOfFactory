@@ -15,5 +15,9 @@
     <string name="radio_8">8ч смена</string>
     <string name="radio_day">2 через 2</string>
     <string name="title_activity_calendar">Календарь</string>
+    <string name="fullHours_text">Фактические часы</string>
+    <string name="normalHours_text">Норма рабочего времени</string>
+    <string name="overHours_text">Переработанные часы</string>
+    <string name="holidayHours_text">Праздничные часы</string>
 
 </resources>

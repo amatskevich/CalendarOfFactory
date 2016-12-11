@@ -5,30 +5,32 @@ import by.matskevich.calendaroffactory.util.Constants;
 
 public enum StateShift12 implements Statable {
 
-	FIRST_DAY("1-я С УТРА", "8", Constants.COLOR_8),
+	FIRST_DAY("1-я С УТРА", "8", Constants.COLOR_8, 12),
 
-	SECOND_DAY("2-я С УТРА", "8", Constants.COLOR_8),
+	SECOND_DAY("2-я С УТРА", "8", Constants.COLOR_8, 12),
 
-	DAY_OFF_AFTER_WORK_DAY("ВЫХОДНОЙ", "*", Constants.COLOR_WHITE),
+	DAY_OFF_AFTER_WORK_DAY("ВЫХОДНОЙ", "*", Constants.COLOR_WHITE, 0),
 
-	AT_NIGHT("В НОЧЬ", "20", Constants.COLOR_20_24),
+	AT_NIGHT("В НОЧЬ", "20", Constants.COLOR_20_24, 4),
 
-	AFTER_NIGHT_AT_NIGHT("С НОЧИ В НОЧЬ", "20", Constants.COLOR_20_24),
+	AFTER_NIGHT_AT_NIGHT("С НОЧИ В НОЧЬ", "20", Constants.COLOR_20_24, 12),
 
-	AFTER_NIGHT("ОТСЫПНОЙ", "O", Constants.COLOR_O),
+	AFTER_NIGHT("ОТСЫПНОЙ", "O", Constants.COLOR_O, 8),
 
-	DAY_OFF("ВЫХОДНОЙ", "*", Constants.COLOR_WHITE),
+	DAY_OFF("ВЫХОДНОЙ", "*", Constants.COLOR_WHITE, 0),
 
-	DAY_OFF_BEFORE_WORK_("ЗАВТРА С УТРА", "*", Constants.COLOR_WHITE);
+	DAY_OFF_BEFORE_WORK_("ЗАВТРА С УТРА", "*", Constants.COLOR_WHITE, 0);
 
 	final String state;
 	final String sign;
 	final int color;
+	final int hours;
 
-	private StateShift12(String state, String sign, String color) {
+	StateShift12(String state, String sign, String color, int workHours) {
 		this.state = state;
 		this.sign = sign;
 		this.color = Color.parseColor(color);
+		this.hours = workHours;
 	}
 
 	@Override
@@ -44,6 +46,11 @@ public enum StateShift12 implements Statable {
 	@Override
 	public int getColor() {
 		return color;
+	}
+
+	@Override
+	public double getWorkHours() {
+		return hours;
 	}
 
 	@Override

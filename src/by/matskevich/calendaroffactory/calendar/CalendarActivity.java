@@ -2,6 +2,8 @@ package by.matskevich.calendaroffactory.calendar;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,195 +28,224 @@ import by.matskevich.calendaroffactory.Statable;
 import by.matskevich.calendaroffactory.TypeShift;
 import by.matskevich.calendaroffactory.util.Constants;
 import by.matskevich.calendaroffactory.util.Utils;
+import by.matskevich.calendaroffactory.workedHours.WorkHoursCalculator;
+import by.matskevich.calendaroffactory.workedHours.WorkHoursDto;
 
 public class CalendarActivity extends Activity {
 
-	private TableLayout calendar;
-	private TextView monthText;
-	private TextView shiftText;
+    private static Map<Calendar, WorkHoursDto> cashWorksHours = new HashMap<Calendar, WorkHoursDto>();
 
-	private Calendar currentDate;
-	private Calendar date;
-	private CharShift shift;
-	private TypeShift typeShift;
+    private TableLayout calendar;
+    private TextView monthText;
+    private TextView shiftText;
+    private TableLayout workedHoursTable;
+    private TextView fullHours;
+    private TextView normalHours;
+    private TextView overHours;
+    private TextView holidayHours;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_calendar);
+    private Calendar currentDate;
+    private Calendar date;
+    private CharShift shift;
+    private TypeShift typeShift;
 
-		currentDate = Calendar.getInstance();
-		currentDate.setFirstDayOfWeek(Calendar.MONDAY);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_calendar);
 
-		Intent intent = getIntent();
-		shift = findShift(intent.getStringExtra(Constants.EXTRA_SHIFT));
-		date = createDate(intent.getLongExtra(Constants.EXTRA_DATE, new Date().getTime()));
+        currentDate = Calendar.getInstance();
+        currentDate.setFirstDayOfWeek(Calendar.MONDAY);
 
-		calendar = (TableLayout) findViewById(R.id.calendar_view);
-		monthText = (TextView) findViewById(R.id.month);
-		shiftText = (TextView) findViewById(R.id.shift_char);
+        Intent intent = getIntent();
+        shift = findShift(intent.getStringExtra(Constants.EXTRA_SHIFT));
+        date = createDate(intent.getLongExtra(Constants.EXTRA_DATE, new Date().getTime()));
 
-		calendar.setOnTouchListener(new OnSwipeTouchListener(CalendarActivity.this) {
-			public void onSwipeRight() {
-				rebuildView(-1);
-			}
+        calendar = (TableLayout) findViewById(R.id.calendar_view);
+        monthText = (TextView) findViewById(R.id.month);
+        shiftText = (TextView) findViewById(R.id.shift_char);
+        workedHoursTable = (TableLayout) findViewById(R.id.worked_hours_view);
+        fullHours = (TextView) findViewById(R.id.fullHours);
+        normalHours = (TextView) findViewById(R.id.normalHours);
+        overHours = (TextView) findViewById(R.id.overHours);
+        holidayHours = (TextView) findViewById(R.id.holidayHours);
 
-			public void onSwipeLeft() {
-				rebuildView(1);
-			}
+        calendar.setOnTouchListener(new OnSwipeTouchListener(CalendarActivity.this) {
+            public void onSwipeRight() {
+                rebuildView(-1);
+            }
 
-			private void rebuildView(int i) {
-				date.add(Calendar.MONTH, i);
-				setMonthText(date);
-				calendar.removeAllViews();
-				buildTable();
-			}
-		});
+            public void onSwipeLeft() {
+                rebuildView(1);
+            }
 
-		setMonthText(date);
-		shiftText.setText("Смена: " + shift.getNameChar());
+            private void rebuildView(int i) {
+                date.add(Calendar.MONTH, i);
+                setMonthText(date);
+                calendar.removeAllViews();
+                buildTable();
+            }
+        });
 
-		buildTable();
-	}
+        setMonthText(date);
+        shiftText.setText("Смена: " + shift.getNameChar());
 
-	private void setMonthText(Calendar d) {
-		monthText.setText(MonthRus.values()[d.get(Calendar.MONTH)].name + " " + d.get(Calendar.YEAR));
-	}
+        buildTable();
+    }
 
-	private void buildTable() {
-		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+    private void setMonthText(Calendar d) {
+        monthText.setText(MonthRus.values()[d.get(Calendar.MONTH)].name + " " + d.get(Calendar.YEAR));
+    }
 
-		TableRow.LayoutParams param = new TableRow.LayoutParams();
-		param.setMargins(1, 0, 1, 1);
+    private void buildTable() {
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
-		TableRow head = createTableRow(params);
-		for (String day : Constants.WEEK_DAYS) {
-			TextView tmp = createText(day, Gravity.CENTER_HORIZONTAL);
-			tmp.setLayoutParams(param);
-			tmp.setBackgroundColor(Color.parseColor(Constants.COLOR_HEAD));
-			head.addView(tmp);
-		}
-		calendar.addView(head);
+        TableRow.LayoutParams param = new TableRow.LayoutParams();
+        param.setMargins(1, 0, 1, 1);
 
-		Calendar firstDay = Calendar.getInstance();
-		firstDay.clear();
-		firstDay.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.getActualMinimum(Calendar.DAY_OF_MONTH));
+        TableRow head = createTableRow(params);
+        for (String day : Constants.WEEK_DAYS) {
+            TextView tmp = createText(day, Gravity.CENTER_HORIZONTAL);
+            tmp.setLayoutParams(param);
+            tmp.setBackgroundColor(Color.parseColor(Constants.COLOR_HEAD));
+            head.addView(tmp);
+        }
+        calendar.addView(head);
 
-		int step = Utils.getStepOfCycle(typeShift, firstDay);
-		for (CharShift cs : typeShift.charShift.getEnumConstants()) {
-			if (cs == shift) {
-				break;
-			}
-			step = (2 + step) % typeShift.cycleDays;
-		}
-		Statable stateShift = typeShift.stateShift.getEnumConstants()[step];
+        final Calendar firstDay = Calendar.getInstance();
+        firstDay.clear();
+        firstDay.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.getActualMinimum(Calendar.DAY_OF_MONTH));
 
-		int weekSize = 7;
-		int dayWeek = (firstDay.get(Calendar.DAY_OF_WEEK) + 5) % weekSize;// start_from_monday
-		int maxDays = firstDay.getActualMaximum(Calendar.DAY_OF_MONTH);
-		TableRow tableRow = createTableRow(params);
-		// add empty fields
-		for (int j = 0; j < dayWeek; j++) {
-			tableRow.addView(createLinear(Color.WHITE, param));
-		}
-		for (int i = 1; i <= maxDays; i++, dayWeek++) {
-			if (dayWeek >= weekSize) {
-				dayWeek %= weekSize;
-				calendar.addView(tableRow);
-				tableRow = createTableRow(params);
-			}
-			tableRow.addView(createField(stateShift, ((Integer) i).toString(), param));
-			stateShift = stateShift.next();
-		}
-		// add empty fields
-		for (int j = dayWeek; j < weekSize; j++) {
-			tableRow.addView(createLinear(Color.WHITE, param));
-		}
+        int step = Utils.getStepOfCycle(typeShift, firstDay);
+        for (CharShift cs : typeShift.charShift.getEnumConstants()) {
+            if (cs == shift) {
+                break;
+            }
+            step = (2 + step) % typeShift.cycleDays;
+        }
+        Statable stateShift = typeShift.stateShift.getEnumConstants()[step];
 
-		calendar.addView(tableRow);
-		setCurrentDateIfNeed();
-	}
+        buildWorkedHours(firstDay, stateShift);
 
-	private void setCurrentDateIfNeed() {
-		if (date.get(Calendar.YEAR) == currentDate.get(Calendar.YEAR)
-				&& date.get(Calendar.MONTH) == currentDate.get(Calendar.MONTH)) {
-			int curNumRow = currentDate.get(Calendar.WEEK_OF_MONTH);
-			int curNumCol = (currentDate.get(Calendar.DAY_OF_WEEK) + 5) % 7;// 0 - Monday
-			try {
-				TableRow curRow = (TableRow) calendar.getChildAt(curNumRow);
-				LinearLayout curField = (LinearLayout) curRow.getChildAt(curNumCol);
-				View txt = curField.getChildAt(0);
-				txt.setBackgroundColor(Color.YELLOW);
-			} catch (ClassCastException ex) {
-				Log.e("mtsk", "Not marked current date", ex);
-			} catch (NullPointerException ex) {
-				Log.e("mtsk", "Not marked current date", ex);
-			}
-		}
-	}
+        int weekSize = 7;
+        int dayWeek = (firstDay.get(Calendar.DAY_OF_WEEK) + 5) % weekSize;// start_from_monday
+        int maxDays = firstDay.getActualMaximum(Calendar.DAY_OF_MONTH);
+        TableRow tableRow = createTableRow(params);
+        // add empty fields
+        for (int j = 0; j < dayWeek; j++) {
+            tableRow.addView(createLinear(Color.WHITE, param));
+        }
+        for (int i = 1; i <= maxDays; i++, dayWeek++) {
+            if (dayWeek >= weekSize) {
+                dayWeek %= weekSize;
+                calendar.addView(tableRow);
+                tableRow = createTableRow(params);
+            }
+            tableRow.addView(createField(stateShift, ((Integer) i).toString(), param));
+            stateShift = stateShift.next();
+        }
+        // add empty fields
+        for (int j = dayWeek; j < weekSize; j++) {
+            tableRow.addView(createLinear(Color.WHITE, param));
+        }
 
-	private View createField(Statable stateShift, String day, android.widget.TableRow.LayoutParams param) {
-		LinearLayout cell = createLinear(stateShift.getColor(), param);
-		TextView textDay = createText(day, Gravity.LEFT);
-		textDay.setTextColor(Color.parseColor(Constants.COLOR_DAY));
-		textDay.setTypeface(null, Typeface.BOLD_ITALIC);
-		TextView textSign = createText(stateShift.getStatSign(), Gravity.RIGHT);
-		textSign.setTextColor(Color.BLACK);
+        calendar.addView(tableRow);
+        setCurrentDateIfNeed();
+    }
 
-		cell.addView(textDay);
-		cell.addView(textSign);
-		return cell;
-	}
+    private void buildWorkedHours(final Calendar cal, Statable state) {
 
-	private LinearLayout createLinear(int backgroundColor, android.widget.TableRow.LayoutParams param) {
-		LinearLayout cell = new LinearLayout(this);
-		cell.setBackgroundColor(backgroundColor);
-		cell.setGravity(Gravity.CENTER_HORIZONTAL);
-		cell.setLayoutParams(param);
-		cell.setOrientation(LinearLayout.VERTICAL);
-		return cell;
-	}
+        if (!cashWorksHours.containsKey(cal)) {
+            cashWorksHours.put(cal, WorkHoursCalculator.calculate(cal, state));
+        }
+        WorkHoursDto workHoursDto = cashWorksHours.get(cal);
+        fullHours.setText(workHoursDto.getFullHoursText());
+        normalHours.setText(workHoursDto.getNormalHoursText());
+        overHours.setText(workHoursDto.getOverHoursText());
+        holidayHours.setText(workHoursDto.getHolidayHoursText());
+        workedHoursTable.setVisibility(workHoursDto.isSupported() ? View.VISIBLE : View.INVISIBLE);
+    }
 
-	private TextView createText(String text, int gravity) {
-		TextView reson = new TextView(this);
-		reson.setText(text);
-		reson.setPadding(4, 4, 4, 4);
-		reson.setGravity(gravity);
-		return reson;
-	}
+    private void setCurrentDateIfNeed() {
+        if (date.get(Calendar.YEAR) == currentDate.get(Calendar.YEAR)
+                && date.get(Calendar.MONTH) == currentDate.get(Calendar.MONTH)) {
+            int curNumRow = currentDate.get(Calendar.WEEK_OF_MONTH);
+            int curNumCol = (currentDate.get(Calendar.DAY_OF_WEEK) + 5) % 7;// 0 - Monday
+            try {
+                TableRow curRow = (TableRow) calendar.getChildAt(curNumRow);
+                LinearLayout curField = (LinearLayout) curRow.getChildAt(curNumCol);
+                View txt = curField.getChildAt(0);
+                txt.setBackgroundColor(Color.YELLOW);
+            } catch (ClassCastException ex) {
+                Log.e("mtsk", "Not marked current date", ex);
+            } catch (NullPointerException ex) {
+                Log.e("mtsk", "Not marked current date", ex);
+            }
+        }
+    }
 
-	private TableRow createTableRow(LayoutParams params) {
-		TableRow tableRow = new TableRow(this);
-		tableRow.setBackgroundColor(Color.BLACK);
-		tableRow.setPadding(0, 1, 0, 1);
-		tableRow.setLayoutParams(params);
-		tableRow.setGravity(Gravity.CENTER_HORIZONTAL);
-		return tableRow;
-	}
+    private View createField(Statable stateShift, String day, android.widget.TableRow.LayoutParams param) {
+        LinearLayout cell = createLinear(stateShift.getColor(), param);
+        TextView textDay = createText(day, Gravity.LEFT);
+        textDay.setTextColor(Color.parseColor(Constants.COLOR_DAY));
+        textDay.setTypeface(null, Typeface.BOLD_ITALIC);
+        TextView textSign = createText(stateShift.getStatSign(), Gravity.RIGHT);
+        textSign.setTextColor(Color.BLACK);
 
-	private Calendar createDate(long longExtra) {
-		Calendar res = Calendar.getInstance();
-		res.setTimeInMillis(longExtra);
-		return res;
-	}
+        cell.addView(textDay);
+        cell.addView(textSign);
+        return cell;
+    }
 
-	private CharShift findShift(String stringExtra) {
-		CharShift res;
-		typeShift = BusinessLogic.getInstance().getTypeShift();
-		switch (typeShift) {
-		case TWELFTH:
-			res = CharShift12.valueOf(stringExtra);
-			break;
-		case EIGHT:
-			res = CharShift8.valueOf(stringExtra);
-			break;
-		case DAY:
-			res = CharShiftDay.valueOf(stringExtra);
-			break;
-		default:
-			throw new RuntimeException();
-		}
-		return res;
-	}
+    private LinearLayout createLinear(int backgroundColor, android.widget.TableRow.LayoutParams param) {
+        LinearLayout cell = new LinearLayout(this);
+        cell.setBackgroundColor(backgroundColor);
+        cell.setGravity(Gravity.CENTER_HORIZONTAL);
+        cell.setLayoutParams(param);
+        cell.setOrientation(LinearLayout.VERTICAL);
+        return cell;
+    }
+
+    private TextView createText(String text, int gravity) {
+        TextView reson = new TextView(this);
+        reson.setText(text);
+        reson.setPadding(4, 4, 4, 4);
+        reson.setGravity(gravity);
+        return reson;
+    }
+
+    private TableRow createTableRow(LayoutParams params) {
+        TableRow tableRow = new TableRow(this);
+        tableRow.setBackgroundColor(Color.BLACK);
+        tableRow.setPadding(0, 1, 0, 1);
+        tableRow.setLayoutParams(params);
+        tableRow.setGravity(Gravity.CENTER_HORIZONTAL);
+        return tableRow;
+    }
+
+    private Calendar createDate(long longExtra) {
+        Calendar res = Calendar.getInstance();
+        res.setTimeInMillis(longExtra);
+        return res;
+    }
+
+    private CharShift findShift(String stringExtra) {
+        CharShift res;
+        typeShift = BusinessLogic.getInstance().getTypeShift();
+        switch (typeShift) {
+            case TWELFTH:
+                res = CharShift12.valueOf(stringExtra);
+                break;
+            case EIGHT:
+                res = CharShift8.valueOf(stringExtra);
+                break;
+            case DAY:
+                res = CharShiftDay.valueOf(stringExtra);
+                break;
+            default:
+                throw new RuntimeException();
+        }
+        return res;
+    }
 
 }

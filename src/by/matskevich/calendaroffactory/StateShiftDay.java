@@ -4,22 +4,24 @@ import android.graphics.Color;
 import by.matskevich.calendaroffactory.util.Constants;
 
 public enum StateShiftDay implements Statable {
-	SECOND_DAY_OFF("2-й ВЫХОДНОЙ", "*", Constants.COLOR_WHITE),
+	SECOND_DAY_OFF("2-й ВЫХОДНОЙ", "*", Constants.COLOR_WHITE, 0),
 
-	FIRST_WORK("1-й ДЕНЬ", "8", Constants.COLOR_8),
+	FIRST_WORK("1-й ДЕНЬ", "8", Constants.COLOR_8, 11.25),
 
-	SECOND_WORK("2-й ДЕНЬ", "8", Constants.COLOR_8),
+	SECOND_WORK("2-й ДЕНЬ", "8", Constants.COLOR_8, 11.25),
 
-	FIRST_DAY_OFF("1-й ВЫХОДНОЙ", "*", Constants.COLOR_WHITE);
+	FIRST_DAY_OFF("1-й ВЫХОДНОЙ", "*", Constants.COLOR_WHITE, 0);
 
 	final String state;
 	final String sign;
 	final int color;
+	final double hours;
 
-	private StateShiftDay(String state, String sign, String color) {
+	StateShiftDay(String state, String sign, String color, double workHours) {
 		this.state = state;
 		this.sign = sign;
 		this.color = Color.parseColor(color);
+		this.hours = workHours;
 	}
 
 	@Override
@@ -35,6 +37,11 @@ public enum StateShiftDay implements Statable {
 	@Override
 	public int getColor() {
 		return color;
+	}
+
+	@Override
+	public double getWorkHours() {
+		return hours;
 	}
 
 	@Override

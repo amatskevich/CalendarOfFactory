@@ -6,4 +6,5 @@ public interface Statable {
 	Statable before();
 	String getStatSign();
 	int getColor();
+	double getWorkHours();
 }

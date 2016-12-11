@@ -12,7 +12,7 @@ public enum TypeShift {
 	public final Class<? extends CharShift> charShift;
 	public final Class<? extends Statable> stateShift;
 
-	private TypeShift(int cycle, Class<? extends CharShift> charShift, Class<? extends Statable> stateShift) {
+	TypeShift(int cycle, Class<? extends CharShift> charShift, Class<? extends Statable> stateShift) {
 		this.cycleDays = cycle;
 		Calendar basicDate = Calendar.getInstance();
 		basicDate.set(2016, 2, 20);// Shift_A THIRST_DAY
