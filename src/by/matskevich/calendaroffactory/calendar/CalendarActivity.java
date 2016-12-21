@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -33,7 +34,8 @@ import by.matskevich.calendaroffactory.workedHours.WorkHoursDto;
 
 public class CalendarActivity extends Activity {
 
-    private static Map<Calendar, WorkHoursDto> cashWorksHours = new HashMap<Calendar, WorkHoursDto>();
+    private static Map<Pair<Statable, Calendar>, WorkHoursDto> cashWorksHours =
+            new HashMap<Pair<Statable, Calendar>, WorkHoursDto>();
 
     private TableLayout calendar;
     private TextView monthText;
@@ -125,7 +127,7 @@ public class CalendarActivity extends Activity {
         }
         Statable stateShift = typeShift.stateShift.getEnumConstants()[step];
 
-        buildWorkedHours(firstDay, stateShift);
+        buildWorkedHours(new Pair(stateShift, firstDay));
 
         int weekSize = 7;
         int dayWeek = (firstDay.get(Calendar.DAY_OF_WEEK) + 5) % weekSize;// start_from_monday
@@ -153,12 +155,13 @@ public class CalendarActivity extends Activity {
         setCurrentDateIfNeed();
     }
 
-    private void buildWorkedHours(final Calendar cal, Statable state) {
+    private void buildWorkedHours(final Pair pair) {
 
-        if (!cashWorksHours.containsKey(cal)) {
-            cashWorksHours.put(cal, WorkHoursCalculator.calculate(cal, state));
+        if (!cashWorksHours.containsKey(pair)) {
+            cashWorksHours.put(pair, WorkHoursCalculator.calculate((Calendar) pair.second,
+                    (Statable) pair.first));
         }
-        WorkHoursDto workHoursDto = cashWorksHours.get(cal);
+        WorkHoursDto workHoursDto = cashWorksHours.get(pair);
         fullHours.setText(workHoursDto.getFullHoursText());
         normalHours.setText(workHoursDto.getNormalHoursText());
         overHours.setText(workHoursDto.getOverHoursText());

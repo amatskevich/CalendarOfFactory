@@ -20,7 +20,7 @@ public final class Utils {
 		int days = betweenStartDayEndDay(typeShift.getBasicDate(), date);
 		int step = days % typeShift.cycleDays;
 		if (step < 0) {
-			step += typeShift.cycleDays;
+			step += typeShift.cycleDays - 1;
 		}
 		return step;
 	}
