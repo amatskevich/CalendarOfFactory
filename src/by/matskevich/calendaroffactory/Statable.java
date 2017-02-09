@@ -7,4 +7,5 @@ public interface Statable {
 	String getStatSign();
 	int getColor();
 	double getWorkHours();
+	int getNormalHours();
 }

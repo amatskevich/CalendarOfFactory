@@ -57,6 +57,11 @@ public enum StateShift8 implements Statable {
 	}
 
 	@Override
+	public int getNormalHours() {
+		return 7;
+	}
+
+	@Override
 	public Statable next() {
 		Statable res = null;
 		switch (this) {

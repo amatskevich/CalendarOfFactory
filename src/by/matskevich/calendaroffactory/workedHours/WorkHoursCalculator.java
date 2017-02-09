@@ -11,7 +11,7 @@ public class WorkHoursCalculator {
 
     private final static Map<Integer, List<Integer>> YEARS_HOLIDAYS = new HashMap<Integer, List<Integer>>(10);
 
-    private final static Map<String, Integer> RELIGIOUS_HOLIDAYS = new HashMap<String, Integer>(11);
+    private final static Map<String, List<Integer>> SPECIAL_HOLIDAYS = new HashMap<String, List<Integer>>(17);
 
     static {
         YEARS_HOLIDAYS.put(Calendar.JANUARY, Arrays.asList(1, 7));
@@ -21,17 +21,23 @@ public class WorkHoursCalculator {
         YEARS_HOLIDAYS.put(Calendar.JULY, Collections.singletonList(3));
         YEARS_HOLIDAYS.put(Calendar.NOVEMBER, Collections.singletonList(7));
         YEARS_HOLIDAYS.put(Calendar.DECEMBER, Arrays.asList(25, 32));
-        RELIGIOUS_HOLIDAYS.put("4_2016", 10);
-        RELIGIOUS_HOLIDAYS.put("3_2017", 25);
-        RELIGIOUS_HOLIDAYS.put("3_2018", 17);
-        RELIGIOUS_HOLIDAYS.put("4_2019", 7);
-        RELIGIOUS_HOLIDAYS.put("3_2020", 28);
-        RELIGIOUS_HOLIDAYS.put("4_2021", 11);
-        RELIGIOUS_HOLIDAYS.put("4_2022", 3);
-        RELIGIOUS_HOLIDAYS.put("3_2023", 25);
-        RELIGIOUS_HOLIDAYS.put("4_2024", 14);
-        RELIGIOUS_HOLIDAYS.put("3_2025", 29);
-        RELIGIOUS_HOLIDAYS.put("3_2026", 21);
+        SPECIAL_HOLIDAYS.put("4_2016", Arrays.asList(10, 29)); //Raduniza //Chemical day
+        SPECIAL_HOLIDAYS.put("3_2017", Collections.singletonList(25)); //Raduniza
+        SPECIAL_HOLIDAYS.put("4_2017", Collections.singletonList(28)); //Chemical day
+        SPECIAL_HOLIDAYS.put("3_2018", Collections.singletonList(17)); //Raduniza
+        SPECIAL_HOLIDAYS.put("4_2018", Collections.singletonList(27)); //Chemical day
+        SPECIAL_HOLIDAYS.put("4_2019", Arrays.asList(7, 26)); //Raduniza //Chemical day
+        SPECIAL_HOLIDAYS.put("3_2020", Collections.singletonList(28)); //Raduniza
+        SPECIAL_HOLIDAYS.put("4_2020", Collections.singletonList(31)); //Chemical day
+        SPECIAL_HOLIDAYS.put("4_2021", Arrays.asList(11, 30)); //Raduniza //Chemical day
+        SPECIAL_HOLIDAYS.put("4_2022", Arrays.asList(3, 29)); //Raduniza //Chemical day
+        SPECIAL_HOLIDAYS.put("3_2023", Collections.singletonList(25)); //Raduniza
+        SPECIAL_HOLIDAYS.put("4_2023", Collections.singletonList(28)); //Chemical day
+        SPECIAL_HOLIDAYS.put("4_2024", Arrays.asList(14, 26)); //Raduniza //Chemical day
+        SPECIAL_HOLIDAYS.put("3_2025", Collections.singletonList(29)); //Raduniza
+        SPECIAL_HOLIDAYS.put("4_2025", Collections.singletonList(25)); //Chemical day
+        SPECIAL_HOLIDAYS.put("3_2026", Collections.singletonList(21)); //Raduniza
+        SPECIAL_HOLIDAYS.put("4_2026", Collections.singletonList(31)); //Chemical day
     }
 
     /**
@@ -63,7 +69,7 @@ public class WorkHoursCalculator {
                 holidayHours += state.getWorkHours();
             }
             if (!isHoliday && (day >= Calendar.MONDAY) && (day <= Calendar.FRIDAY)) {
-                normalHours += holidays.contains(date.get(Calendar.DATE) + 1) ? 7 : 8;
+                normalHours += holidays.contains(date.get(Calendar.DATE) + 1) ? state.getNormalHours() - 1 : state.getNormalHours();
             }
 
             date.add(Calendar.DATE, 1);
@@ -76,8 +82,8 @@ public class WorkHoursCalculator {
         Set<Integer> result = new HashSet<Integer>();
         if (YEARS_HOLIDAYS.containsKey(month))
             result.addAll(YEARS_HOLIDAYS.get(month));
-        if (RELIGIOUS_HOLIDAYS.containsKey(month + "_" + year))
-            result.add(RELIGIOUS_HOLIDAYS.get(month + "_" + year));
+        if (SPECIAL_HOLIDAYS.containsKey(month + "_" + year))
+            result.addAll(SPECIAL_HOLIDAYS.get(month + "_" + year));
         return result;
     }
 }

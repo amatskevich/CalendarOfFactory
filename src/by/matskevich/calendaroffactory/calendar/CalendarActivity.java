@@ -45,6 +45,7 @@ public class CalendarActivity extends Activity {
     private TextView normalHours;
     private TextView overHours;
     private TextView holidayHours;
+    private TextView numberOfShift;
 
     private Calendar currentDate;
     private Calendar date;
@@ -71,6 +72,7 @@ public class CalendarActivity extends Activity {
         normalHours = (TextView) findViewById(R.id.normalHours);
         overHours = (TextView) findViewById(R.id.overHours);
         holidayHours = (TextView) findViewById(R.id.holidayHours);
+        numberOfShift = (TextView) findViewById(R.id.numberOfShift_text);
 
         calendar.setOnTouchListener(new OnSwipeTouchListener(CalendarActivity.this) {
             public void onSwipeRight() {
@@ -166,6 +168,7 @@ public class CalendarActivity extends Activity {
         normalHours.setText(workHoursDto.getNormalHoursText());
         overHours.setText(workHoursDto.getOverHoursText());
         holidayHours.setText(workHoursDto.getHolidayHoursText());
+        numberOfShift.setText(shift.getTypeShift().numberOfShiftStr);
         workedHoursTable.setVisibility(workHoursDto.isSupported() ? View.VISIBLE : View.INVISIBLE);
     }
 

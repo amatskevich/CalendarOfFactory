@@ -52,18 +52,26 @@ public class WorkHoursDto {
     }
 
     public String getFullHoursText() {
-        return fullHours.toString();
+        return convertDoubleToHHmm(fullHours);
     }
 
     public String getNormalHoursText() {
-        return normalHours.toString();
+        return convertDoubleToHHmm(normalHours);
     }
 
     public String getOverHoursText() {
-        return overHours.toString();
+        return convertDoubleToHHmm(overHours);
     }
 
     public String getHolidayHoursText() {
-        return holidayHours.toString();
+        return convertDoubleToHHmm(holidayHours);
+    }
+
+    private String convertDoubleToHHmm(Double hours) {
+
+        int min = (int) Math.round(hours * 60);
+        int mm = min % 60;
+        int hh = (min - mm) / 60;
+        return mm == 0 ? hh + "ч" : hh + "ч " + mm + "мин";
     }
 }
