@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:columnCount="3"
-            android:padding="10dip"
+            android:padding="10dp"
             android:paddingBottom="20dip"
             android:paddingTop="30dip" >
 
@@ -21,7 +21,10 @@
                 android:id="@+id/date_down"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_row="0"
                 android:layout_gravity="fill"
+                android:background="@null"
+                android:padding="5dp"
                 android:drawableLeft="@drawable/left"
                 android:layout_rowSpan="2"/>
 
@@ -30,9 +33,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:text="21.03.2016"
                 android:textColor="#000000"
-                android:textSize="33sp" />
+                android:textSize="31sp" />
 
         <TextView
                 android:id="@+id/dateWeek"
@@ -51,7 +56,8 @@
                 android:layout_row="0"
                 android:layout_gravity="fill"
                 android:drawableRight="@drawable/right"
-                android:layout_column="2"
+                android:padding="5dp"
+                android:background="@null"
                 android:layout_rowSpan="2"/>
     </GridLayout>
 

@@ -1,175 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:layout_gravity="center_horizontal"
-              android:background="@color/backgroundApp"
-              android:orientation="vertical">
 
-    <TextView
-            android:id="@+id/shift_char"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/backgroundApp">
+
+    <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:paddingTop="10dp"
-            android:textColor="#000000"
-            android:textStyle="bold"/>
+            android:orientation="vertical">
 
-    <TextView
-            android:id="@+id/month"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="10dp"
-            android:textColor="#000000"
-            android:textStyle="bold"/>
 
-    <TableLayout
-            android:id="@+id/calendar_view"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:gravity="center_horizontal"
-            android:stretchColumns="*">
-    </TableLayout>
+        <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:stretchColumns="*">
 
-    <TableLayout
-            android:id="@+id/worked_hours_view"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:stretchColumns="*">
+            <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-        <TableRow
-                android:id="@+id/tableRow0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/month"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:padding="5dp"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/calendar_text_size"
+                        android:textStyle="bold"/>
 
-            <TextView
-                    android:id="@+id/numberOfShift_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:layout_span="2"
-                    android:text="Shift #"
-                    android:textColor="#000000"
-                    android:textStyle="bold"/>
+                <TextView
+                        android:id="@+id/shift_char"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:padding="5dp"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/calendar_text_size"
+                        android:textStyle="bold"/>
 
-        </TableRow>
+            </TableRow>
+        </TableLayout>
 
-        <TableRow
-                android:id="@+id/tableRow1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+        <TableLayout
+                android:id="@+id/calendar_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:gravity="center_horizontal"
+                android:stretchColumns="*">
+        </TableLayout>
 
-            <TextView
-                    android:id="@+id/fullHours_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:text="@string/fullHours_text"
-                    android:textColor="#000000"
-                    android:textStyle="bold"/>
+        <TableLayout
+                android:id="@+id/worked_hours_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:stretchColumns="*">
 
-            <TextView
-                    android:id="@+id/fullHours"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"/>
+            <TableRow
+                    android:id="@+id/tableRow0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-        </TableRow>
+                <TextView
+                        android:id="@+id/numberOfShift_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:paddingRight="10dp"
+                        android:paddingTop="15dp"
+                        android:layout_span="2"
+                        android:text="Shift #"
+                        android:textSize="@dimen/calendar_text_size"
+                        android:textColor="#000000"
+                        android:textStyle="bold"/>
 
-        <TableRow
-                android:id="@+id/tableRow2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            </TableRow>
 
-            <TextView
-                    android:id="@+id/normalHours_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:text="@string/normalHours_text"
-                    android:textColor="#000000"
-                    android:textStyle="bold"/>
+            <TableRow
+                    android:id="@+id/tableRow1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                    android:id="@+id/normalHours"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"/>
+                <TextView
+                        android:id="@+id/fullHours_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:paddingTop="@dimen/calendar_hours_padding_top"
+                        android:text="@string/fullHours_text"
+                        android:textSize="@dimen/calendar_text_size"
+                        android:textColor="#000000"/>
 
-        </TableRow>
+                <TextView
+                        android:id="@+id/fullHours"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="@dimen/calendar_hours_padding_top"
+                        android:textSize="@dimen/calendar_text_size"
+                        android:textColor="#000000"/>
 
-        <TableRow
-                android:id="@+id/tableRow3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            </TableRow>
 
-            <TextView
-                    android:id="@+id/overHours_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:text="@string/overHours_text"
-                    android:textColor="#000000"
-                    android:textStyle="bold"/>
+            <TableRow
+                    android:id="@+id/tableRow2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                    android:id="@+id/overHours"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"/>
+                <TextView
+                        android:id="@+id/normalHours_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:paddingTop="@dimen/calendar_hours_padding_top"
+                        android:text="@string/normalHours_text"
+                        android:textSize="@dimen/calendar_text_size"
+                        android:textColor="#000000"/>
 
-        </TableRow>
+                <TextView
+                        android:id="@+id/normalHours"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="@dimen/calendar_hours_padding_top"
+                        android:textSize="@dimen/calendar_text_size"
+                        android:textColor="#000000"/>
 
-        <TableRow
-                android:id="@+id/tableRow4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            </TableRow>
 
-            <TextView
-                    android:id="@+id/holidayHours_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:paddingRight="10dp"
-                    android:paddingTop="5dp"
-                    android:text="@string/holidayHours_text"
-                    android:textColor="#000000"
-                    android:textStyle="bold"/>
+            <TableRow
+                    android:id="@+id/tableRow3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            <TextView
-                    android:id="@+id/holidayHours"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
-                    android:textColor="#000000"
-                    android:textStyle="bold"/>
+                <TextView
+                        android:id="@+id/overHours_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:paddingTop="@dimen/calendar_hours_padding_top"
+                        android:text="@string/overHours_text"
+                        android:textSize="@dimen/calendar_text_size"
+                        android:textColor="#000000"/>
 
-        </TableRow>
-    </TableLayout>
+                <TextView
+                        android:id="@+id/overHours"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="@dimen/calendar_hours_padding_top"
+                        android:textSize="@dimen/calendar_text_size"
+                        android:textColor="#000000"/>
 
-</LinearLayout>
+            </TableRow>
+
+            <TableRow
+                    android:id="@+id/tableRow4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:id="@+id/holidayHours_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:paddingRight="10dp"
+                        android:paddingTop="@dimen/calendar_hours_padding_top"
+                        android:text="@string/holidayHours_text"
+                        android:textSize="@dimen/calendar_text_size"
+                        android:textColor="#000000"/>
+
+                <TextView
+                        android:id="@+id/holidayHours"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="@dimen/calendar_hours_padding_top"
+                        android:textSize="@dimen/calendar_text_size"
+                        android:textColor="#000000"/>
+
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+</ScrollView>

@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -194,9 +195,13 @@ public class CalendarActivity extends Activity {
         LinearLayout cell = createLinear(stateShift.getColor(), param);
         TextView textDay = createText(day, Gravity.LEFT);
         textDay.setTextColor(Color.parseColor(Constants.COLOR_DAY));
-        textDay.setTypeface(null, Typeface.BOLD_ITALIC);
+        textDay.setTypeface(null, Typeface.ITALIC);
+        textDay.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        textDay.setPadding(4,0,4,0);
         TextView textSign = createText(stateShift.getStatSign(), Gravity.RIGHT);
         textSign.setTextColor(Color.BLACK);
+        textSign.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+        textSign.setPadding(4,0,4,0);
 
         cell.addView(textDay);
         cell.addView(textSign);
@@ -217,6 +222,7 @@ public class CalendarActivity extends Activity {
         reson.setText(text);
         reson.setPadding(4, 4, 4, 4);
         reson.setGravity(gravity);
+        reson.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
         return reson;
     }
 

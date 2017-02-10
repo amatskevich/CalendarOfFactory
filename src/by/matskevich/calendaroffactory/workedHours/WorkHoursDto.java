@@ -69,6 +69,8 @@ public class WorkHoursDto {
 
     private String convertDoubleToHHmm(Double hours) {
 
+        if (hours <= 0) return "-";
+
         int min = (int) Math.round(hours * 60);
         int mm = min % 60;
         int hh = (min - mm) / 60;
