@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="by.matskevich.calendaroffactory"
-    android:versionCode="9"
-    android:versionName="1.9" >
+    android:versionCode="10"
+    android:versionName="1.10" >
 
     <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="16" />
+        android:minSdkVersion="17"
+        android:targetSdkVersion="17" />
 
     <application
         android:allowBackup="true"

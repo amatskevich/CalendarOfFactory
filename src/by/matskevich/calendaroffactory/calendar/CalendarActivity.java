@@ -62,7 +62,13 @@ public class CalendarActivity extends Activity {
         currentDate.setFirstDayOfWeek(Calendar.MONDAY);
 
         Intent intent = getIntent();
-        shift = findShift(intent.getStringExtra(Constants.EXTRA_SHIFT));
+        try {
+            shift = findShift(intent.getStringExtra("shift"));
+        } catch (IllegalArgumentException iae) {
+            Log.e("mtsk", "not find shift", iae);
+            finish();
+            return;
+        }
         date = createDate(intent.getLongExtra(Constants.EXTRA_DATE, new Date().getTime()));
 
         calendar = (TableLayout) findViewById(R.id.calendar_view);
