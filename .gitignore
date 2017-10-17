@@ -1,1 +1,5 @@
-bin/*
+.idea/*
+assets/
+bin/
+out/
+CalendarOfFactory.apk
