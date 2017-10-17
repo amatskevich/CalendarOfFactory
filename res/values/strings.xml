@@ -19,5 +19,6 @@
     <string name="normalHours_text">Норма рабочего времени</string>
     <string name="overHours_text">Переработанные часы</string>
     <string name="holidayHours_text">Праздничные часы</string>
+    <string name="exception_try_again">Произошла ошибка.\nПопробуйте ещё раз или перезапустите приложение.</string>
 
 </resources>

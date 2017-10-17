@@ -15,11 +15,13 @@ import android.util.Pair;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import by.matskevich.calendaroffactory.BusinessLogic;
 import by.matskevich.calendaroffactory.CharShift;
 import by.matskevich.calendaroffactory.CharShift12;
@@ -66,10 +68,11 @@ public class CalendarActivity extends Activity {
             shift = findShift(intent.getStringExtra("shift"));
         } catch (IllegalArgumentException iae) {
             Log.e("mtsk", "not find shift", iae);
+            showToastWithException();
             finish();
             return;
         }
-        date = createDate(intent.getLongExtra(Constants.EXTRA_DATE, new Date().getTime()));
+        date = createDate(intent.getLongExtra("time", new Date().getTime()));
 
         calendar = (TableLayout) findViewById(R.id.calendar_view);
         monthText = (TextView) findViewById(R.id.month);
@@ -102,6 +105,17 @@ public class CalendarActivity extends Activity {
         shiftText.setText("Смена: " + shift.getNameChar());
 
         buildTable();
+    }
+
+    private void showToastWithException() {
+
+        Toast toast = Toast.makeText(getApplicationContext(),
+                R.string.exception_try_again, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        ViewGroup group = (ViewGroup) toast.getView();
+        TextView messageTextView = (TextView) group.getChildAt(0);
+        messageTextView.setTextSize(20);
+        toast.show();
     }
 
     private void setMonthText(Calendar d) {

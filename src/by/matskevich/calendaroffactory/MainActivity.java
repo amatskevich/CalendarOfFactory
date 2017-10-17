@@ -162,8 +162,8 @@ public class MainActivity extends Activity implements OnClickListener, RadioGrou
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
 
-				intent.putExtra(Constants.EXTRA_SHIFT, shift.toString());
-				intent.putExtra(Constants.EXTRA_DATE, bLogic.getDateLong());
+				intent.putExtra("shift", shift.toString());
+				intent.putExtra("time", bLogic.getDateLong());
 				startActivity(intent);
 			}
 		}

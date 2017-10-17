@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 
 public interface Constants {
 
-	String EXTRA_DATE = "time";
-	String EXTRA_SHIFT = "shift";
 	DateFormat FORMATTER_DATE = new SimpleDateFormat("dd.MM.yyyy");
 	String[] WEEK_DAYS = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" };
 	String[] WEEK_DAYS_FULL = { "Воскресенье", "Понедельник", "Вторник", "Среда",
