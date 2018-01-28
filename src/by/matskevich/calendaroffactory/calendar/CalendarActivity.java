@@ -1,9 +1,6 @@
 package by.matskevich.calendaroffactory.calendar;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -42,7 +39,6 @@ public class CalendarActivity extends Activity {
 
     private TableLayout calendar;
     private TextView monthText;
-    private TextView shiftText;
     private TableLayout workedHoursTable;
     private TextView fullHours;
     private TextView normalHours;
@@ -54,6 +50,7 @@ public class CalendarActivity extends Activity {
     private Calendar date;
     private CharShift shift;
     private TypeShift typeShift;
+    private SalaryDateManager salaryManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +73,7 @@ public class CalendarActivity extends Activity {
 
         calendar = (TableLayout) findViewById(R.id.calendar_view);
         monthText = (TextView) findViewById(R.id.month);
-        shiftText = (TextView) findViewById(R.id.shift_char);
+        TextView shiftText = (TextView) findViewById(R.id.shift_char);
         workedHoursTable = (TableLayout) findViewById(R.id.worked_hours_view);
         fullHours = (TextView) findViewById(R.id.fullHours);
         normalHours = (TextView) findViewById(R.id.normalHours);
@@ -104,6 +101,8 @@ public class CalendarActivity extends Activity {
         setMonthText(date);
         shiftText.setText("Смена: " + shift.getNameChar());
 
+        salaryManager = new SalaryDateManager();
+
         buildTable();
     }
 
@@ -123,6 +122,7 @@ public class CalendarActivity extends Activity {
     }
 
     private void buildTable() {
+
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
         TableRow.LayoutParams param = new TableRow.LayoutParams();
@@ -152,6 +152,8 @@ public class CalendarActivity extends Activity {
 
         buildWorkedHours(new Pair(stateShift, firstDay));
 
+        final List<Integer> salaryDays = salaryManager
+                .getSalaryDays(date.get(Calendar.MONTH) + "_" + date.get(Calendar.YEAR));
         int weekSize = 7;
         int dayWeek = (firstDay.get(Calendar.DAY_OF_WEEK) + 5) % weekSize;// start_from_monday
         int maxDays = firstDay.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -160,13 +162,16 @@ public class CalendarActivity extends Activity {
         for (int j = 0; j < dayWeek; j++) {
             tableRow.addView(createLinear(Color.WHITE, param));
         }
-        for (int i = 1; i <= maxDays; i++, dayWeek++) {
+
+        for (Integer i = 1; i <= maxDays; i++, dayWeek++) {
             if (dayWeek >= weekSize) {
                 dayWeek %= weekSize;
                 calendar.addView(tableRow);
                 tableRow = createTableRow(params);
             }
-            tableRow.addView(createField(stateShift, ((Integer) i).toString(), param));
+            final boolean isSalaryDay = salaryDays != null && salaryDays.contains(i);
+            final View cell = createField(stateShift, i.toString(), param, isSalaryDay);
+            tableRow.addView(cell);
             stateShift = stateShift.next();
         }
         // add empty fields
@@ -211,24 +216,32 @@ public class CalendarActivity extends Activity {
         }
     }
 
-    private View createField(Statable stateShift, String day, android.widget.TableRow.LayoutParams param) {
+    private View createField(Statable stateShift, String day,
+                             LinearLayout.LayoutParams param, final boolean salaryDay) {
+
         LinearLayout cell = createLinear(stateShift.getColor(), param);
-        TextView textDay = createText(day, Gravity.LEFT);
-        textDay.setTextColor(Color.parseColor(Constants.COLOR_DAY));
-        textDay.setTypeface(null, Typeface.ITALIC);
-        textDay.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        textDay.setPadding(4,0,4,0);
+        TextView upperText = createText(day, Gravity.LEFT);
+        upperText.setTextColor(Color.parseColor(Constants.COLOR_DAY));
+        upperText.setTypeface(null, Typeface.ITALIC);
+        upperText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        upperText.setPadding(4,0,4,0);
         TextView textSign = createText(stateShift.getStatSign(), Gravity.RIGHT);
         textSign.setTextColor(Color.BLACK);
         textSign.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
-        textSign.setPadding(4,0,4,0);
+        textSign.setPadding(0,0,4,0);
 
-        cell.addView(textDay);
-        cell.addView(textSign);
+        final View bottomText;
+        if (salaryDay) {
+            bottomText = salaryManager.createBottomSalaryText(this, textSign, stateShift.getColor());
+        } else {
+            bottomText = textSign;
+        }
+        cell.addView(upperText);
+        cell.addView(bottomText);
         return cell;
     }
 
-    private LinearLayout createLinear(int backgroundColor, android.widget.TableRow.LayoutParams param) {
+    private LinearLayout createLinear(int backgroundColor, LinearLayout.LayoutParams param) {
         LinearLayout cell = new LinearLayout(this);
         cell.setBackgroundColor(backgroundColor);
         cell.setGravity(Gravity.CENTER_HORIZONTAL);
