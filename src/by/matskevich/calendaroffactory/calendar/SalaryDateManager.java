@@ -67,7 +67,7 @@ class SalaryDateManager {
         res.setGravity(Gravity.LEFT);
         res.setTextColor(Color.rgb(0, 51, 0));
         res.setTypeface(null, Typeface.BOLD);
-        res.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        res.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
         res.setPadding(4, 0, 0, 0);
         return res;
     }

@@ -125,7 +125,8 @@ public class CalendarActivity extends Activity {
 
         LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
-        TableRow.LayoutParams param = new TableRow.LayoutParams();
+        TableRow.LayoutParams param = new TableRow.LayoutParams(
+                0, LayoutParams.MATCH_PARENT);
         param.setMargins(1, 0, 1, 1);
 
         TableRow head = createTableRow(params);
@@ -160,7 +161,7 @@ public class CalendarActivity extends Activity {
         TableRow tableRow = createTableRow(params);
         // add empty fields
         for (int j = 0; j < dayWeek; j++) {
-            tableRow.addView(createLinear(Color.WHITE, param));
+            tableRow.addView(createLinear(Color.BLACK, param));
         }
 
         for (Integer i = 1; i <= maxDays; i++, dayWeek++) {
@@ -176,7 +177,7 @@ public class CalendarActivity extends Activity {
         }
         // add empty fields
         for (int j = dayWeek; j < weekSize; j++) {
-            tableRow.addView(createLinear(Color.WHITE, param));
+            tableRow.addView(createLinear(Color.BLACK, param));
         }
 
         calendar.addView(tableRow);
