@@ -39,37 +39,49 @@ public class OnSwipeTouchListener implements OnTouchListener {
 				if (Math.abs(diffX) > Math.abs(diffY)) {
 					if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
 						if (diffX > 0) {
-							onSwipeRight();
+							result = onSwipeRight();
 						} else {
-							onSwipeLeft();
+							result = onSwipeLeft();
 						}
 					}
-					result = true;
 				} else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
 					if (diffY > 0) {
-						onSwipeBottom();
+						result = onSwipeBottom();
 					} else {
-						onSwipeTop();
+						result = onSwipeTop();
 					}
 				}
-				result = true;
 
 			} catch (Exception exception) {
 				exception.printStackTrace();
 			}
 			return result;
 		}
+
+		@Override
+		public boolean onSingleTapUp(MotionEvent e) {
+			onTouchPopupShow();
+			return super.onSingleTapUp(e);
+		}
+
 	}
 
-	public void onSwipeRight() {
+	public boolean onSwipeRight() {
+		return false;
 	}
 
-	public void onSwipeLeft() {
+	public boolean onSwipeLeft() {
+		return false;
 	}
 
-	public void onSwipeTop() {
+	public boolean onSwipeTop() {
+		return false;
 	}
 
-	public void onSwipeBottom() {
+	public boolean onSwipeBottom() {
+		return false;
+	}
+
+	public void onTouchPopupShow() {
 	}
 }

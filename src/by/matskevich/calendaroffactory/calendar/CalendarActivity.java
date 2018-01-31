@@ -10,15 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
 import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import by.matskevich.calendaroffactory.BusinessLogic;
 import by.matskevich.calendaroffactory.CharShift;
 import by.matskevich.calendaroffactory.CharShift12;
@@ -37,7 +31,7 @@ public class CalendarActivity extends Activity {
     private static Map<Pair<Statable, Calendar>, WorkHoursDto> cashWorksHours =
             new HashMap<Pair<Statable, Calendar>, WorkHoursDto>();
 
-    private TableLayout calendar;
+    private CalendarTableLayout calendar;
     private TextView monthText;
     private TableLayout workedHoursTable;
     private TextView fullHours;
@@ -71,7 +65,7 @@ public class CalendarActivity extends Activity {
         }
         date = createDate(intent.getLongExtra("time", new Date().getTime()));
 
-        calendar = (TableLayout) findViewById(R.id.calendar_view);
+        calendar = (CalendarTableLayout) findViewById(R.id.calendar_view);
         monthText = (TextView) findViewById(R.id.month);
         TextView shiftText = (TextView) findViewById(R.id.shift_char);
         workedHoursTable = (TableLayout) findViewById(R.id.worked_hours_view);
@@ -82,12 +76,14 @@ public class CalendarActivity extends Activity {
         numberOfShift = (TextView) findViewById(R.id.numberOfShift_text);
 
         calendar.setOnTouchListener(new OnSwipeTouchListener(CalendarActivity.this) {
-            public void onSwipeRight() {
+            public boolean onSwipeRight() {
                 rebuildView(-1);
+                return true;
             }
 
-            public void onSwipeLeft() {
+            public boolean onSwipeLeft() {
                 rebuildView(1);
+                return true;
             }
 
             private void rebuildView(int i) {
@@ -95,6 +91,36 @@ public class CalendarActivity extends Activity {
                 setMonthText(date);
                 calendar.removeAllViews();
                 buildTable();
+            }
+
+            @Override
+            public void onTouchPopupShow() {
+
+                // get a reference to the already created main layout
+                ScrollView calendarLayout = (ScrollView)
+                        findViewById(R.id.activity_calendar);
+
+                // inflate the layout of the popup window
+                LayoutInflater inflater = (LayoutInflater)
+                        getSystemService(LAYOUT_INFLATER_SERVICE);
+                View popupView = inflater.inflate(R.layout.popup_calendar_legend, null);
+
+                // create the popup window
+                final PopupWindow popupWindow = new PopupWindow(popupView,
+                        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,
+                        true);
+
+                // show the popup window
+                popupWindow.showAtLocation(calendarLayout, Gravity.CENTER, 0, 0);
+
+                // dismiss the popup window when touched
+                popupView.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                });
             }
         });
 

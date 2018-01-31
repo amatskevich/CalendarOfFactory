@@ -4,7 +4,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_gravity="center_horizontal"
-            android:background="@color/backgroundApp">
+            android:background="@color/backgroundApp"
+            android:id="@+id/activity_calendar">
 
     <LinearLayout
             android:layout_width="fill_parent"
@@ -45,14 +46,14 @@
             </TableRow>
         </TableLayout>
 
-        <TableLayout
+        <by.matskevich.calendaroffactory.calendar.CalendarTableLayout
                 android:id="@+id/calendar_view"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
                 android:gravity="center_horizontal"
                 android:stretchColumns="*">
-        </TableLayout>
+        </by.matskevich.calendaroffactory.calendar.CalendarTableLayout>
 
         <TableLayout
                 android:id="@+id/worked_hours_view"
