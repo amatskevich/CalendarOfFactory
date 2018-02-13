@@ -15,6 +15,6 @@ public class CalendarTableLayout extends TableLayout {
 
     @Override
     public boolean performClick() {
-        return true;
+        return super.performClick();
     }
 }

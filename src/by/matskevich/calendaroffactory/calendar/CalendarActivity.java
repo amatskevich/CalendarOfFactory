@@ -110,6 +110,8 @@ public class CalendarActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,
                         true);
 
+//                popupWindow.setContentView();
+
                 // show the popup window
                 popupWindow.showAtLocation(calendarLayout, Gravity.CENTER, 0, 0);
 

@@ -6,6 +6,7 @@
                 android:id="@+id/popup_calendar_legend">
 
     <TextView
+            android:id="@+id/text_popup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

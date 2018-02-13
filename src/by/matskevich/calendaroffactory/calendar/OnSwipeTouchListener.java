@@ -11,12 +11,13 @@ public class OnSwipeTouchListener implements OnTouchListener {
 
 	private final GestureDetector gestureDetector;
 
-	public OnSwipeTouchListener(Context ctx) {
+	OnSwipeTouchListener(Context ctx) {
 		gestureDetector = new GestureDetector(ctx, new GestureListener());
 	}
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
+		v.performClick();
 		return gestureDetector.onTouchEvent(event);
 	}
 
@@ -61,7 +62,7 @@ public class OnSwipeTouchListener implements OnTouchListener {
 		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
 			onTouchPopupShow();
-			return super.onSingleTapUp(e);
+			return true;
 		}
 
 	}
@@ -74,11 +75,11 @@ public class OnSwipeTouchListener implements OnTouchListener {
 		return false;
 	}
 
-	public boolean onSwipeTop() {
+	private boolean onSwipeTop() {
 		return false;
 	}
 
-	public boolean onSwipeBottom() {
+	private boolean onSwipeBottom() {
 		return false;
 	}
 
