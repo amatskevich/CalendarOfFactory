@@ -8,4 +8,5 @@ public interface Statable {
 	int getColor();
 	double getWorkHours();
 	int getNormalHours();
+	String getDescription();
 }

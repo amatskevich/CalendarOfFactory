@@ -5,12 +5,12 @@
                 android:background="#62def8"
                 android:id="@+id/popup_calendar_legend">
 
-    <TextView
-            android:id="@+id/text_popup"
+    <TableLayout
+            android:id="@+id/popup_table"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_margin="30dp"
-            android:textSize="22sp"
-            android:text="This is a popup window."/>
+            android:background="#3B170B"
+            android:gravity="center_horizontal">
+    </TableLayout>
 </RelativeLayout>

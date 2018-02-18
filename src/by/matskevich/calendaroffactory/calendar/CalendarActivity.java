@@ -45,6 +45,7 @@ public class CalendarActivity extends Activity {
     private CharShift shift;
     private TypeShift typeShift;
     private SalaryDateManager salaryManager;
+    private CalendarPopupManager popupManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class CalendarActivity extends Activity {
         overHours = (TextView) findViewById(R.id.overHours);
         holidayHours = (TextView) findViewById(R.id.holidayHours);
         numberOfShift = (TextView) findViewById(R.id.numberOfShift_text);
+        popupManager = new CalendarPopupManager();
 
         calendar.setOnTouchListener(new OnSwipeTouchListener(CalendarActivity.this) {
             public boolean onSwipeRight() {
@@ -110,10 +112,11 @@ public class CalendarActivity extends Activity {
                         LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,
                         true);
 
-//                popupWindow.setContentView();
-
                 // show the popup window
-                popupWindow.showAtLocation(calendarLayout, Gravity.CENTER, 0, 0);
+                popupWindow.showAtLocation(calendarLayout, Gravity.CENTER_HORIZONTAL, 0, -50);
+
+                final TableLayout popupTable = (TableLayout) popupView.findViewById(R.id.popup_table);
+                popupManager.buildPopupTable(popupTable, CalendarActivity.this);
 
                 // dismiss the popup window when touched
                 popupView.setOnTouchListener(new View.OnTouchListener() {
