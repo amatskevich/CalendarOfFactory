@@ -3,3 +3,5 @@ assets/
 bin/
 out/
 CalendarOfFactory.apk
+CalendarOfFactory.iml
+proguard-project.txt
