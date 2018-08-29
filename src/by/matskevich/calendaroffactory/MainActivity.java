@@ -25,6 +25,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import by.matskevich.calendaroffactory.calendar.CalendarActivity;
+import by.matskevich.calendaroffactory.mappingHoliday.ChooseStaffsActivity;
 import by.matskevich.calendaroffactory.settings.SettingsActivity;
 import by.matskevich.calendaroffactory.util.Constants;
 import by.matskevich.calendaroffactory.util.RadioGroupShiftable;
@@ -110,7 +111,12 @@ public class MainActivity extends Activity implements OnClickListener, RadioGrou
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.action_settings) {
+
+		if (item.getItemId() == R.id.common_holiday) {
+			Intent intent = new Intent(MainActivity.this, ChooseStaffsActivity.class);
+			startActivity(intent);
+			return true;
+		} else if (item.getItemId() == R.id.action_settings) {
 			Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
 			startActivity(intent);
 			return true;
