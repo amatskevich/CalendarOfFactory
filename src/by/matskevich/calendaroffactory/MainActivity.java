@@ -181,7 +181,7 @@ public class MainActivity extends Activity implements OnClickListener, RadioGrou
 			row.addView(col1);
 			row.setBackgroundColor(Color.parseColor(rowColor ? Constants.COLOR_ROW1 : Constants.COLOR_ROW2));
 			row.setPadding(0, 10, 0, 10);
-			rowColor = rowColor ? false : true;
+			rowColor = !rowColor;
 			row.addView(col2);
 			row.setClickable(true);
 			row.setOnClickListener(new RowListener(shift.getCharShift()));

@@ -1,8 +1,10 @@
 package by.matskevich.calendaroffactory.mappingHoliday;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -37,10 +39,25 @@ public class ChooseStaffsActivity extends Activity {
         radioGroupSecond = (RadioGroup) findViewById(R.id.radioGroupStaffSecond);
 
         button = (Button) findViewById(R.id.show_common_holiday);
+        addListener(button);
 
         radioGroupFirst.setOnCheckedChangeListener(createChangeListener(spinnerFirst));
         radioGroupSecond.setOnCheckedChangeListener(createChangeListener(spinnerSecond));
         initSpinners();
+    }
+
+    private void addListener(Button button) {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(ChooseStaffsActivity.this, MappingHolidaysActivity.class);
+
+                intent.putExtra("shift_1", spinnerFirst.getId());
+                intent.putExtra("shift_2", spinnerSecond.getId());
+                startActivity(intent);
+            }
+        });
     }
 
     private void initSpinners() {
