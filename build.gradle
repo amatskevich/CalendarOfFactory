@@ -6,11 +6,10 @@ buildscript {
      */
     repositories {
         jcenter()
-        mavenCentral()
         maven {
-            url "https://jitpack.io"
+            url 'https://maven.google.com/'
+            name 'Google'
         }
-        google()
     }
 
     /**
@@ -18,7 +17,7 @@ buildscript {
      * of the Gradle plugin for the buildscript.
      */
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath 'com.android.tools.build:gradle:3.0.1'
     }
 }
 
@@ -62,7 +61,7 @@ android {
         }
 
         // Move the tests to tests/java, tests/res, etc...
-        androidTest.setRoot('tests')
+        instrumentTest.setRoot('tests')
 
         /**
          * Move the build types to build-types/<type>
@@ -83,9 +82,8 @@ android {
 
 }
 repositories {
-    google()
-    jcenter()
     maven {
-        url "https://jitpack.io"
+        url 'https://maven.google.com/'
+        name 'Google'
     }
 }

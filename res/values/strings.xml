@@ -20,8 +20,5 @@
     <string name="overHours_text">Переработанные часы</string>
     <string name="holidayHours_text">Праздничные часы</string>
     <string name="exception_try_again">Произошла ошибка.\nПопробуйте ещё раз или перезапустите приложение.</string>
-    <string name="common_holiday">Совместные выходные</string>
-    <string name="choose_staffs">Выбор смен</string>
-    <string name="processed_holiday">рассчитать</string>
 
 </resources>
