@@ -13,38 +13,14 @@
             android:orientation="vertical">
 
 
-        <TableLayout
+        <by.matskevich.calendaroffactory.calendar.CalendarTableLayout
+                android:id="@+id/mapping_view"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 android:gravity="center_horizontal"
                 android:stretchColumns="*">
-
-            <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                <TextView
-                        android:id="@+id/month"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
-                        android:padding="5dp"
-                        android:textColor="#000000"
-                        android:textSize="@dimen/calendar_text_size"
-                        android:textStyle="bold"/>
-
-                <TextView
-                        android:id="@+id/shift_char"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:padding="5dp"
-                        android:textColor="#000000"
-                        android:textSize="@dimen/calendar_text_size"
-                        android:textStyle="bold"/>
-
-            </TableRow>
-        </TableLayout>
+        </by.matskevich.calendaroffactory.calendar.CalendarTableLayout>
 
     </LinearLayout>
 </ScrollView>

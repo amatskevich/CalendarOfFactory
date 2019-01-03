@@ -13,6 +13,10 @@ public class SpinnerItem {
         this.label = label;
     }
 
+    public CharShift getShift() {
+        return shift;
+    }
+
     @Override
     public String toString() {
         return label;

@@ -51,16 +51,29 @@ public class ChooseStaffsActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+                if (spinnerFirst.getSelectedItem() == null || spinnerSecond.getSelectedItem() == null) {
+                    return;
+                }
+
                 Intent intent = new Intent(ChooseStaffsActivity.this, MappingHolidaysActivity.class);
 
-                intent.putExtra("shift_1", spinnerFirst.getId());
-                intent.putExtra("shift_2", spinnerSecond.getId());
+                CharShift cs1 = ((SpinnerItem) spinnerFirst.getSelectedItem()).getShift();
+                CharShift cs2 = ((SpinnerItem) spinnerSecond.getSelectedItem()).getShift();
+                intent.putExtra("type_shift_1", cs1.getTypeShift().toString());
+                intent.putExtra("char_shift_1", cs1.getChar());
+                intent.putExtra("type_shift_2", cs2.getTypeShift().toString());
+                intent.putExtra("char_shift_2", cs2.getChar());
                 startActivity(intent);
             }
         });
     }
 
     private void initSpinners() {
+
+        //todo default value of spinners
+//        spinnerFirst.setSelection(1, true);
+//        spinnerFirst.getAdapter().notifyDataSetChanged();
+//        spinnerSecond.setSelection(1);
 
     }
 
