@@ -33,7 +33,7 @@ apply plugin: 'com.android.application'
  * following line includes all the JAR files in the libs directory.
  */
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     // Add other library dependencies here (see the next step)
 }
 

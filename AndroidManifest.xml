@@ -50,14 +50,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="by.matskevich.calendaroffactory.MainActivity" />
         </activity>
-        <activity android:name=".mappingHoliday.MappingHolidaysActivity"
-                  android:label="@string/choose_staffs"
-                  android:parentActivityName=".mappingHoliday.ChooseStaffsActivity"
-                  android:screenOrientation="portrait">
-            <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value="by.matskevich.calendaroffactory.mappingHoliday.ChooseStaffsActivity"/>
-        </activity>
     </application>
 
 </manifest>
