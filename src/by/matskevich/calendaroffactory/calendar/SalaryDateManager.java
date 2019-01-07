@@ -30,6 +30,19 @@ class SalaryDateManager {
         SALARY_DAYS.put("9_2018", Arrays.asList(10, 25));
         SALARY_DAYS.put("10_2018", Arrays.asList(9, 23));
         SALARY_DAYS.put("11_2018", Arrays.asList(10, 22));
+
+        SALARY_DAYS.put("0_2019", Arrays.asList(10, 25));
+        SALARY_DAYS.put("1_2019", Arrays.asList(8, 25));
+        SALARY_DAYS.put("2_2019", Arrays.asList(7, 25));
+        SALARY_DAYS.put("3_2019", Arrays.asList(10, 25));
+        SALARY_DAYS.put("4_2019", Arrays.asList(10, 24));
+        SALARY_DAYS.put("5_2019", Arrays.asList(10, 25));
+        SALARY_DAYS.put("6_2019", Arrays.asList(10, 25));
+        SALARY_DAYS.put("7_2019", Arrays.asList(9, 23));
+        SALARY_DAYS.put("8_2019", Arrays.asList(10, 25));
+        SALARY_DAYS.put("9_2019", Arrays.asList(10, 25));
+        SALARY_DAYS.put("10_2019", Arrays.asList(6, 25));
+        SALARY_DAYS.put("11_2019", Arrays.asList(10, 24));
     }
 
     private LinearLayout createLinearHor(Activity activity, int backgroundColor) {
