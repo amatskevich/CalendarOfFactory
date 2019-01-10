@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:background="@color/backgroundApp"
+              android:orientation="vertical">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center_horizontal"
-            android:background="@color/backgroundApp"
-            android:id="@+id/activity_calendar">
-
-    <LinearLayout
-            android:layout_width="fill_parent"
+    <TextView
+            android:id="@+id/selected_shift_1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="@string/choose_shift"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:background="#FAFAFA"
+            android:padding="5dp"
+            android:layout_margin="5dp"/>
 
+    <TextView
+            android:id="@+id/selected_shift_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_shift"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:background="#FAFAFA"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+    />
 
-        <by.matskevich.calendaroffactory.calendar.CalendarTableLayout
-                android:id="@+id/mapping_view"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
-                android:gravity="center_horizontal"
-                android:stretchColumns="*">
-        </by.matskevich.calendaroffactory.calendar.CalendarTableLayout>
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

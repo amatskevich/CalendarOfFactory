@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/shift_menu_group" >
+        <item
+                android:id="@+id/menu_12"
+                android:title="@string/radio_12">
+            <menu>
+                <item
+                        android:id="@+id/submenu_12_A"
+                        android:title="А"/>
+                <item
+                        android:id="@+id/submenu_12_B"
+                        android:title="Б"/>
+                <item
+                        android:id="@+id/submenu_12_V"
+                        android:title="В"/>
+                <item
+                        android:id="@+id/submenu_12_G"
+                        android:title="Г"/>
+            </menu>
+        </item>
+        <item
+                android:id="@+id/menu_8"
+                android:title="@string/radio_8">
+            <menu>
+                <item
+                        android:id="@+id/submenu_8_A"
+                        android:title="А"/>
+                <item
+                        android:id="@+id/submenu_8_B"
+                        android:title="Б"/>
+                <item
+                        android:id="@+id/submenu_8_V"
+                        android:title="В"/>
+                <item
+                        android:id="@+id/submenu_8_G"
+                        android:title="Г"/>
+                <item
+                        android:id="@+id/submenu_8_D"
+                        android:title="Д"/>
+            </menu></item>
+        <item
+                android:id="@+id/menu_day"
+                android:title="@string/radio_day">
+            <menu>
+                <item
+                        android:id="@+id/submenu_day_1"
+                        android:title="1 бригада"/>
+                <item
+                        android:id="@+id/submenu_day_2"
+                        android:title="2 бригада"/>
+            </menu>
+        </item>
+    </group>
+</menu>

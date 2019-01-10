@@ -27,4 +27,8 @@ public enum CharShift12 implements CharShift {
 		return TypeShift.TWELFTH;
 	}
 
+	public int getOrder() {
+		return this.ordinal();
+	}
+
 }

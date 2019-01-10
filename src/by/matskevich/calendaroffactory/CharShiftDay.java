@@ -31,4 +31,9 @@ public enum CharShiftDay implements CharShift {
 		return TypeShift.DAY;
 	}
 
+	@Override
+	public int getOrder() {
+		return this.ordinal();
+	}
+
 }

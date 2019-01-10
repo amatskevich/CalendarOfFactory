@@ -27,4 +27,9 @@ public enum CharShift8 implements CharShift {
 		return TypeShift.EIGHT;
 	}
 
+	@Override
+	public int getOrder() {
+		return this.ordinal();
+	}
+
 }
