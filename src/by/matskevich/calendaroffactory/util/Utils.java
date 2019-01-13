@@ -2,7 +2,9 @@ package by.matskevich.calendaroffactory.util;
 
 import java.util.Calendar;
 
+import android.app.Fragment;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.view.View;
 import by.matskevich.calendaroffactory.R;
 import by.matskevich.calendaroffactory.TypeShift;
@@ -55,6 +57,27 @@ public final class Utils {
 		SharedPreferences.Editor editor = group.getSettingsEdit();
 		editor.putString(TypeShift.TYPE_SHIFT, group.getTypeShift().toString());
 		editor.apply();
+	}
+
+
+	public static String getNameOfTypeShift(TypeShift typeShift, Resources resources) {
+
+		int resource;
+
+		switch (typeShift) {
+			case TWELFTH:
+				resource = R.string.radio_12;
+				break;
+			case DAY:
+				resource = R.string.radio_day;
+				break;
+			case EIGHT:
+				resource = R.string.radio_8;
+				break;
+			default:
+				return "";
+		}
+		return resources.getString(resource);
 	}
 
 }
