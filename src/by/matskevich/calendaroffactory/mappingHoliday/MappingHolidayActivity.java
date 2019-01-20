@@ -13,7 +13,6 @@ import by.matskevich.calendaroffactory.calendar.CalendarTableLayout;
 import by.matskevich.calendaroffactory.calendar.MonthRus;
 import by.matskevich.calendaroffactory.calendar.OnSwipeTouchListener;
 import by.matskevich.calendaroffactory.calendarTable.CalendarTableProducer;
-import by.matskevich.calendaroffactory.calendarTable.SpecializationExtenderFactory;
 import by.matskevich.calendaroffactory.util.Utils;
 
 import java.util.Calendar;
@@ -22,7 +21,6 @@ public class MappingHolidayActivity extends Activity {
 
     private GeneratingMenuHelper generatingMenuHelper;
     private CharShift[] charShifts = new CharShift[2];
-    private CalendarTableLayout calendar;
     private Calendar date;
     private TextView monthText;
     private CalendarTableProducer calendarTableProducer;
@@ -33,7 +31,7 @@ public class MappingHolidayActivity extends Activity {
         setContentView(R.layout.activity_mapping_holiday);
         monthText = (TextView) findViewById(R.id.mapping_month);
         date = Calendar.getInstance();
-        calendar = (CalendarTableLayout) findViewById(R.id.mapping_calendar_view);
+        CalendarTableLayout calendar = (CalendarTableLayout) findViewById(R.id.mapping_calendar_view);
         charShifts[0] = null;
         charShifts[1] = null;
         calendarTableProducer = new CalendarTableProducer(this, calendar);
@@ -51,7 +49,6 @@ public class MappingHolidayActivity extends Activity {
             private void rebuildView(int i) {
                 date.add(Calendar.MONTH, i);
                 setMonthText(date);
-                calendar.removeAllViews();
                 calendarTableProducer.buildTable(date, new HolidayExtenderFactory(charShifts));
             }
         });
@@ -107,13 +104,12 @@ public class MappingHolidayActivity extends Activity {
     private void refreshTable() {
 
         if (charShifts[0] == null || charShifts[1] == null) {
-            Toast.makeText(getApplicationContext(), "not filled", Toast.LENGTH_SHORT).show();
             return;
         }
         setMonthText(date);
         calendarTableProducer.buildTable(date, new HolidayExtenderFactory(charShifts));
         //TODO remove
-        Toast.makeText(getApplicationContext(), charShifts[0] + ":" + charShifts[1], Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), charShifts[0] + ":" + charShifts[1], Toast.LENGTH_SHORT).show();
     }
 
 

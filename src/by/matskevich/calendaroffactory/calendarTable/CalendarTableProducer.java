@@ -29,6 +29,8 @@ public class CalendarTableProducer {
 
     public void buildTable(final Calendar date, final SpecializationExtenderFactory factory) {
 
+        calendar.removeAllViews();
+
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         TableRow.LayoutParams param = new TableRow.LayoutParams(
@@ -46,7 +48,6 @@ public class CalendarTableProducer {
 
         final Calendar firstDay = getFirstDate(date);
 
-        //todo replace to separate method with calculated color
         final SpecializationExtender extender = factory.getSpecializationFactory(firstDay);
 
         int dayWeek = (firstDay.get(Calendar.DAY_OF_WEEK) + 5) % weekSize;// start_from_monday
@@ -80,7 +81,7 @@ public class CalendarTableProducer {
         Calendar firstDay = Calendar.getInstance();
         firstDay.clear();
         firstDay.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.getActualMinimum(Calendar.DAY_OF_MONTH));
-        return date;
+        return firstDay;
     }
 
     private TableRow createTableRow(ViewGroup.LayoutParams params) {

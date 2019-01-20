@@ -42,11 +42,11 @@ public class MappingHolidaySpecialization extends SpecializationExtender {
     public View createBottomText(Activity activity) {
 
         TextView textView = new TextView(activity);
-        textView.setGravity(Gravity.RIGHT);
-        textView.setText("20");
+        textView.setGravity(Gravity.CENTER);
+        textView.setText(statable_1.getStatSign() + '/' + statable_2.getStatSign());
         textView.setTextColor(Color.BLACK);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
-        textView.setPadding(0,0,4,0);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        textView.setPadding(1,0,1,0);
         return textView;
     }
 }
