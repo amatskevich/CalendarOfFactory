@@ -73,7 +73,7 @@ public final class BusinessLogic {
 		return Constants.WEEK_DAYS_FULL[date.get(Calendar.DAY_OF_WEEK) - 1];
 	}
 
-	public Long getDateLong() {
+	public long getDateLong() {
 		return date.getTimeInMillis();
 	}
 

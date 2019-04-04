@@ -57,14 +57,14 @@ public class CalendarActivity extends Activity {
 
         Intent intent = getIntent();
         try {
-            shift = findShift(intent.getStringExtra("shift"));
+            shift = findShift(intent.getStringExtra("by.matskevich.calendaroffactory.shift"));
         } catch (IllegalArgumentException iae) {
             Log.e("mtsk", "not find shift", iae);
             showToastWithException();
             finish();
             return;
         }
-        date = createDate(intent.getLongExtra("time", new Date().getTime()));
+        date = createDate(intent.getLongExtra("by.matskevich.calendaroffactory.time", new Date().getTime()));
 
         calendar = (CalendarTableLayout) findViewById(R.id.calendar_view);
         monthText = (TextView) findViewById(R.id.month);
