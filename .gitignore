@@ -5,3 +5,19 @@ out/
 CalendarOfFactory.apk
 CalendarOfFactory.iml
 proguard-project.txt
+# Project exclude paths
+/build/android-profile/
+/build/generated/source/r/
+/build/intermediates/blame/
+/build/intermediates/classes/
+/build/intermediates/classes/debug/
+/build/intermediates/dex-cache/
+/build/intermediates/incremental/
+/build/intermediates/javaPrecompile/
+/build/intermediates/lint-cache/
+/build/intermediates/manifests/
+/build/intermediates/res/
+/build/intermediates/splits-support/
+/build/intermediates/transforms/
+/build/outputs/
+/build/reports/
