@@ -27,6 +27,7 @@ public class WorkHoursCalculator {
         SPECIAL_HOLIDAYS.put("3_2018", Collections.singletonList(17)); //Raduniza
         SPECIAL_HOLIDAYS.put("4_2018", Collections.singletonList(27)); //Chemical day
         SPECIAL_HOLIDAYS.put("4_2019", Arrays.asList(7, 26)); //Raduniza //Chemical day
+        SPECIAL_HOLIDAYS.put("0_2020", Collections.singletonList(2)); //long New year
         SPECIAL_HOLIDAYS.put("3_2020", Collections.singletonList(28)); //Raduniza
         SPECIAL_HOLIDAYS.put("4_2020", Collections.singletonList(31)); //Chemical day
         SPECIAL_HOLIDAYS.put("4_2021", Arrays.asList(11, 30)); //Raduniza //Chemical day

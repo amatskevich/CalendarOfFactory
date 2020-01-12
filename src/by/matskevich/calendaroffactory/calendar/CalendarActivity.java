@@ -52,7 +52,7 @@ public class CalendarActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        currentDate = Calendar.getInstance();
+        currentDate = Calendar.getInstance(TimeZone.getTimeZone("GMT+3"), Locale.UK);
         currentDate.setFirstDayOfWeek(Calendar.MONDAY);
 
         Intent intent = getIntent();
