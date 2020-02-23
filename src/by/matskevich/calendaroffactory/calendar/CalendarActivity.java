@@ -52,7 +52,7 @@ public class CalendarActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        currentDate = Calendar.getInstance(TimeZone.getTimeZone("GMT+3"), Locale.UK);
+        currentDate = Calendar.getInstance();
         currentDate.setFirstDayOfWeek(Calendar.MONDAY);
 
         Intent intent = getIntent();
@@ -186,6 +186,9 @@ public class CalendarActivity extends Activity {
 
         final List<Integer> salaryDays = salaryManager
                 .getSalaryDays(date.get(Calendar.MONTH) + "_" + date.get(Calendar.YEAR));
+        final int currentDay = currentDate.get(Calendar.MONTH) == date.get(Calendar.MONTH)
+                && currentDate.get(Calendar.YEAR) == date.get(Calendar.YEAR) ? currentDate.get(Calendar.DAY_OF_MONTH) : -1;
+
         int weekSize = 7;
         int dayWeek = (firstDay.get(Calendar.DAY_OF_WEEK) + 5) % weekSize;// start_from_monday
         int maxDays = firstDay.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -202,7 +205,8 @@ public class CalendarActivity extends Activity {
                 tableRow = createTableRow(params);
             }
             final boolean isSalaryDay = salaryDays != null && salaryDays.contains(i);
-            final View cell = createField(stateShift, i.toString(), param, isSalaryDay);
+            final boolean isCurrentDay = i == currentDay;
+            final View cell = createField(stateShift, i.toString(), param, isSalaryDay, isCurrentDay);
             tableRow.addView(cell);
             stateShift = stateShift.next();
         }
@@ -212,7 +216,6 @@ public class CalendarActivity extends Activity {
         }
 
         calendar.addView(tableRow);
-        setCurrentDateIfNeed();
     }
 
     private void buildWorkedHours(final Pair pair) {
@@ -230,26 +233,8 @@ public class CalendarActivity extends Activity {
         workedHoursTable.setVisibility(workHoursDto.isSupported() ? View.VISIBLE : View.INVISIBLE);
     }
 
-    private void setCurrentDateIfNeed() {
-        if (date.get(Calendar.YEAR) == currentDate.get(Calendar.YEAR)
-                && date.get(Calendar.MONTH) == currentDate.get(Calendar.MONTH)) {
-            int curNumRow = currentDate.get(Calendar.WEEK_OF_MONTH);
-            int curNumCol = (currentDate.get(Calendar.DAY_OF_WEEK) + 5) % 7;// 0 - Monday
-            try {
-                TableRow curRow = (TableRow) calendar.getChildAt(curNumRow);
-                LinearLayout curField = (LinearLayout) curRow.getChildAt(curNumCol);
-                View txt = curField.getChildAt(0);
-                txt.setBackgroundColor(Color.YELLOW);
-            } catch (ClassCastException ex) {
-                Log.e("mtsk", "Not marked current date", ex);
-            } catch (NullPointerException ex) {
-                Log.e("mtsk", "Not marked current date", ex);
-            }
-        }
-    }
-
-    private View createField(Statable stateShift, String day,
-                             LinearLayout.LayoutParams param, final boolean salaryDay) {
+    private View createField(Statable stateShift, String day, LinearLayout.LayoutParams param,
+                             final boolean salaryDay, boolean isCurrentDay) {
 
         LinearLayout cell = createLinear(stateShift.getColor(), param);
         TextView upperText = createText(day, Gravity.LEFT);
@@ -257,6 +242,9 @@ public class CalendarActivity extends Activity {
         upperText.setTypeface(null, Typeface.ITALIC);
         upperText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         upperText.setPadding(4,0,4,0);
+        if (isCurrentDay) {
+            upperText.setBackgroundColor(Color.YELLOW);
+        }
         TextView textSign = createText(stateShift.getStatSign(), Gravity.RIGHT);
         textSign.setTextColor(Color.BLACK);
         textSign.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
