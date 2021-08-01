@@ -10,12 +10,14 @@ public class WorkHoursDto {
     private final Double holidayHours;
     private final Double normalHours;
     private boolean supported;
+    private int amountOfShifts;
 
-    public WorkHoursDto(double fullHours, double holidayHours, double normalHours) {
+    public WorkHoursDto(double fullHours, double holidayHours, double normalHours, int amountOfShifts) {
         this.fullHours = fullHours;
         this.holidayHours = holidayHours;
         this.normalHours = normalHours;
         this.overHours = fullHours - normalHours;
+        this.amountOfShifts = amountOfShifts;
         this.supported = true;
     }
 
@@ -75,5 +77,9 @@ public class WorkHoursDto {
         int mm = min % 60;
         int hh = (min - mm) / 60;
         return mm == 0 ? hh + "ч" : hh + "ч " + mm + "мин";
+    }
+
+    public int getAmountOfShifts() {
+        return amountOfShifts;
     }
 }

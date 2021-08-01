@@ -39,6 +39,7 @@ public class CalendarActivity extends Activity {
     private TextView overHours;
     private TextView holidayHours;
     private TextView numberOfShift;
+    private TextView amountOfShifts;
 
     private Calendar currentDate;
     private Calendar date;
@@ -71,6 +72,7 @@ public class CalendarActivity extends Activity {
         TextView shiftText = (TextView) findViewById(R.id.shift_char);
         workedHoursTable = (TableLayout) findViewById(R.id.worked_hours_view);
         fullHours = (TextView) findViewById(R.id.fullHours);
+        amountOfShifts = (TextView) findViewById(R.id.amountOfShifts);
         normalHours = (TextView) findViewById(R.id.normalHours);
         overHours = (TextView) findViewById(R.id.overHours);
         holidayHours = (TextView) findViewById(R.id.holidayHours);
@@ -226,6 +228,7 @@ public class CalendarActivity extends Activity {
         }
         WorkHoursDto workHoursDto = cashWorksHours.get(pair);
         fullHours.setText(workHoursDto.getFullHoursText());
+        amountOfShifts.setText(workHoursDto.getAmountOfShifts());
         normalHours.setText(workHoursDto.getNormalHoursText());
         overHours.setText(workHoursDto.getOverHoursText());
         holidayHours.setText(workHoursDto.getHolidayHoursText());

@@ -56,6 +56,7 @@ public class WorkHoursCalculator {
         double fullHours = 0;
         double holidayHours = 0;
         double normalHours = 0;
+        int amountOfShifts = 0;
         Calendar date = Calendar.getInstance();
         date.set(year, firstDate.get(Calendar.MONTH), firstDate.get(Calendar.DATE));
         boolean isHoliday;
@@ -76,7 +77,7 @@ public class WorkHoursCalculator {
             date.add(Calendar.DATE, 1);
             state = state.next();
         }
-        return new WorkHoursDto(fullHours, holidayHours, normalHours);
+        return new WorkHoursDto(fullHours, holidayHours, normalHours, amountOfShifts);
     }
 
     private static Set<Integer> getHolidaysByMonthYear(final int year, final int month) {
