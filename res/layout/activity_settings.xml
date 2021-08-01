@@ -5,6 +5,15 @@
     android:background="@color/backgroundApp" 
     android:paddingTop="5dp">
 
+    <CheckBox
+        android:id="@+id/wrw_checkbox"
+        android:layout_width="354dp"
+        android:layout_height="wrap_content"
+        android:onClick="onClickWRW"
+        android:enabled="true"
+        android:padding="10dp"
+        android:text="БЧБ" />
+
     <include layout="@layout/inc_radio_shift" />
 
     <TableLayout

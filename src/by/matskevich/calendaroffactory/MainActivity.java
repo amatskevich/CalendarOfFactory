@@ -65,6 +65,12 @@ public class MainActivity extends Activity implements OnClickListener, RadioGrou
 		dateWeekView = (TextView) findViewById(R.id.dateWeek);
 		dateWeekView.setOnClickListener(this);
 		table = (TableLayout) findViewById(R.id.table_layout1);
+		boolean wrw_belarus = mSettings.getBoolean("wrw_belarus2", true);
+		int visibility = wrw_belarus ? View.VISIBLE : View.GONE;
+		findViewById(R.id.first_white).setVisibility(visibility);
+		findViewById(R.id.red_color).setVisibility(visibility);
+		findViewById(R.id.second_white).setVisibility(visibility);
+		findViewById(R.id.wrw_words).setVisibility(visibility);
 		readNameShift(CharShift8.class);
 		readNameShift(CharShift12.class);
 	}

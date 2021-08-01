@@ -6,24 +6,28 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/first_white"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="#FFFFFF"
         android:orientation="vertical" />
 
     <LinearLayout
+        android:id="@+id/red_color"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="#FF0000"
         android:orientation="vertical" />
 
     <LinearLayout
+        android:id="@+id/second_white"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="#FFFFFF"
         android:orientation="vertical" />
 
     <LinearLayout
+        android:id="@+id/wrw_words"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"

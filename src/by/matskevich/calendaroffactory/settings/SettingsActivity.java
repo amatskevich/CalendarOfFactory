@@ -13,6 +13,7 @@ import android.text.InputFilter;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -50,6 +51,9 @@ public class SettingsActivity extends Activity implements RadioGroupShiftable {
 		table8 = (TableLayout) findViewById(R.id.table_shift8);
 		table12 = (TableLayout) findViewById(R.id.table_shift12);
 		tableDay = (TableLayout) findViewById(R.id.table_shift_day);
+		CheckBox wrwCheckbox = (CheckBox) findViewById(R.id.wrw_checkbox);
+		boolean wrw_belarus = mSettings.getBoolean("wrw_belarus2", true);
+		wrwCheckbox.setChecked(wrw_belarus);
 		nameChars.clear();
 		buildTables(table8, CharShift8.class, HEAP_8);
 		buildTables(table12, CharShift12.class, HEAP_12);
@@ -166,4 +170,10 @@ public class SettingsActivity extends Activity implements RadioGroupShiftable {
 		this.type = type;
 	}
 
+	public void onClickWRW(View view) {
+		boolean checked = ((CheckBox) view).isChecked();
+		Editor edit = mSettings.edit();
+		edit.putBoolean("wrw_belarus2", checked);
+		edit.apply();
+	}
 }
